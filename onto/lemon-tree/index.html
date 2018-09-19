@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Lemon-tree</title>
+<!-- raw -->
+<!--<script src='https://raw.githubusercontent.com/ssstolk/respec/develop/builds/respec-blank.js' async class='remove'></script>-->
+<!-- development -->
+<!--<script src="http://rawgit.com/ssstolk/respec/develop/builds/respec-blank.js" class="remove"></script>-->
+<!-- production -->
+<script src="http://cdn.rawgit.com/ssstolk/respec/develop/builds/respec-blank.js" class="remove"></script>
+<script class='remove'>
+  var respecConfig = {
+    specStatus: "base",
+    editors: [{
+      name: "Sander Stolk", url: "https://www.universiteitleiden.nl/en/staffmembers/sander-stolk",
+      company: "Leiden University", companyURL: "https://www.universiteitleiden.nl/"
+    }],
+    github: "https://github.com/ssstolk/ssstolk.github.io/onto/lemon-tree",
+    edDraftURI: "https://ssstolk.github.io/onto/lemon-tree/lemon-tree.html",
+    shortName: "lemon-tree",
+    license: "cc-by",
+    overrideCopyright: "<p class='copyright'>This document is licensed under a <a class='subfoot' href='https://creativecommons.org/licenses/by/3.0/' rel='license'>Creative Commons Attribution 3.0 License</a>.</p>",
+  };
+</script>
+<style>.todo { color:red; font-weight:bold; }</style>
+<style>
+.entity { border:1px solid #000080; width:80%; margin-left:auto; margin-right:auto; max-width:80%; margin-left:auto; margin-right:auto; margin-bottom:30px; margin-top:30px; padding: 10px; }
+.entity h3 { margin-top:3px;padding-bottom:5px;border-bottom:1px solid #000080; }
+.description { border-top:1px dashed #808080; border-bottom:1px dashed #808080; margin-top:5px; padding-bottom:5px; }
+</style>
+</head>
+<body>
+
+<section id='abstract'>
+<p>
+Lemon-tree is an RDF vocabulary for capturing the content of lexicographical resources known as thesauri. 
+These resources organize words and their senses according to a hierarchy that conveys their meaning. 
+Lemon-tree specifies how thesauri can be captured in RDF, reusing existing standards: SKOS for capturing hierarchies, LEMON for lexical and lexicographic material. 
+To that end, Lemon-tree offers a guideline in how these two models fit together and adds terminology for perceived lacunae.
+</p>
+</section>
+
+<section>
+<h2 id="introduction">Introduction</h2>
+<p>A thesaurus is a special kind of dictionary. 
+Dictionaries commonly employ an alphabetical ordering of their words and phrases. 
+Thesauri, by contrast, organize their items according to their meaning. 
+They do this by means of a topical structure: a tree of concepts, if you will. 
+This overarching structure offers generic meanings to users as a starting point, which branch out to meanings increasingly specific. 
+Once users locate the meaning which they are interested in, they are presented with the words or phrases that express that meaning. 
+This overarching topical system in a thesaurus thus allows the user to move from meaning to lexical item.</p>
+
+<p>Lemon-tree is an RDF vocabulary that bridges SKOS and LEMON in order to capture the content of thesauri. 
+The SKOS vocabulary already allows capturing concepts in RDF and organizing them in hierarchies. 
+LEMON allows capturing lexical entries, senses, and further lexicographic material. 
+Terminology from both, then, are valuable for sharing thesauri on the Web. 
+Lemon-tree therefore aims to facilitate their combined use for that purpose.
+To that end, Lemon-tree offers a guideline in how these two models fit together and adds some terminology for perceived lacunae (e.g., for categorizing senses and for expressing levels in the hierarchy).
+</p>
+<p>The <strong>lemon-tree</strong> model employs the following namespace:</p>
+<a href="https://w3id.org/lemon-tree" class="uri">https://w3id.org/lemon-tree</a>#
+<p>The <strong>lemon-tree</strong> model can be retrieved in two ways:
+<ol>
+<li>access its namespace with the preferred Content-Type "text/turtle" in the request</li>
+<li>use this direct link: <a href="https://w3id.org/lemon-tree/lemon-tree.ttl" class="uri">https://w3id.org/lemon-tree/lemon-tree.ttl</a></li>
+</ol>
+</p>
+
+
+<section>
+<h2 id="purpose">Purpose of the model</h2>
+<p>
+Lemon-tree does not aim to supplant existing and well-known standards that may be used for sharing thesaurus content on the Web. 
+Instead, the purpose of this model and its documentation are to provide a guideline and to offer additional terminology where needed.
+For further advice and recommendations, we therefore refer the reader to the documentation on <span class="todo" title="https://www.w3.org/TR/skos-reference/">SKOS</span>, <span class="todo" title="https://www.w3.org/2016/05/ontolex/">LEMON</span>, and its Lexicography Module.
+</p>
+</section>
+
+<section>
+<h2 id="conventions-in-this-document">Conventions in this document</h2>
+<p>This document contains images depicting the content of existing thesauri. A legend to these images is provided below.
+<figure>
+    <img src="img/legend.svg" width="50%"/><figcaption>Legend</figcaption>
+</figure>
+</p>
+
+<p>Examples of Lemon-tree content in this document are provided using the <a href="http://www.w3.org/TR/turtle/">Turtle RDF Syntax</a>. The following namespaces are used in these examples:</p>
+<pre><code class="cm">@prefix tree: &lt;https://w3id.org/lemon-tree#&gt; .
+@prefix ontolex: &lt;http://www.w3.org/ns/lemon/ontolex#&gt; .
+@prefix skos: &lt;http://www.w3.org/2004/02/skos#&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</code></pre>
+
+<p>The examples in this document are based on existing thesauri. Each of these has its own content and purpose.</p>
+<ul>
+<li>Historical Thesaurus of the Oxford English Dictionary (HTOED)</li>
+<li>Shakespeare Thesaurus (ShT)</li>
+<li>Scots Thesaurus (ScT)</li>
+<li>Love, Sex, Marriage (LSM)</li>
+</ul>
+<p>The selection was made to illustrate various characteristics of thesauri.</p>
+</section>
+</section>
+
+<section>
+<h2 id="thesaurus">Thesaurus</h2>
+<p>There are many ways to present or visualize a thesaurus. Even so, the information conveyed by each of them tends to consists of the same main components:</p>
+<ol>
+<li>a topical system</li>
+<li>a number of words and senses<br/>(possibly with synonymy explicitly indicated)</li>
+</ol>
+
+<figure>
+    <img src="img/thesaurus-sample-HTOED.svg" width="80%"/><figcaption>Thesaurus components [based on HTOED]</figcaption>
+</figure>
+<p>In a thesaurus, then, a word sense is located (or categorized) within a topical system, may be part of a set of synonyms, and is typically accompanied by additional information such as its part of speech and usage features. We discuss these components in the following sections.</p>
+</section>
+
+<section>
+<h2 id="topical-system">Topical system</h2>
+<p>This overarching structure which is used to organize lexical items is not unlike the taxonomies of animals and plants created by the eighteenth-century biologist Carl Linnaeus (1707-1778) and later expanded by Georges Cuvier (1769-1832).<span class="todo" title="F. Faria, ‘Georges Cuvier et le premier paradigme de la paléontologie’, Revue de Paléobiologie 32:2 (2013), 297–302.">[foot]</span> In these tree-like structures, the most generic or abstract concepts are used as roots, which branch out to concepts increasingly specific in meaning.</p>
+<p>Topical systems in thesauri go by different names. Some thesauri refer to their overarching system as the classification system.<span class="todo" title="LSM, DSSPIEL, and the paper editions of TOE">[foot]</span> Others position their topical structure as consisting of categories rather than classes, suggesting that their lexis has been categorized rather than classified.<span class="todo" title="HTE, HTS, ScT, and the electronic edition of TOE">[foot]</span> For topical systems used to organize lexis, this document prefers the terms category and categorization over class and classification.<span class="todo" title="Jacob, ‘Classification and Categorization’, pp. 527–31.">[foot]</span></p>
+<p>Lemon-tree captures the topical system using terminology from SKOS. This standard from W3C was designed specifically for knowledge organization systems, including topical systems. 
+Thus, the topical system as a whole would be captured as follows for the Historical Thesaurus of the Oxford English Dictionary.
+<pre class="example turtle nohighlight" title="A topical system in lemon-tree">
+    &lt;htoed&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Historical Thesaurus of the Oxford English Dictionary"@en .
+</pre>
+Its category "Freedom/liberty" would be captured as shown below. This example includes the relation to the parent category "Lack of subjection". Note that categories are captured as SKOS Concepts.
+<pre class="example turtle nohighlight" title="A category in lemon-tree">
+    &lt;freedom-liberty&gt; a skos:Concept ;
+        skos:prefLabel "Freedom/liberty"@en ;
+        skos:inScheme &lt;htoed&gt; ; 
+        skos:broader &lt;lack-of-subjection&gt; .
+</pre>
+As we will see further on in the document, it is possible to use a specialized variant of SKOS Concept when categorizing senses. This topic will be treated in the section <a href="#categorization-and-lexicalization">Categorization and lexicalization</a>.</p>
+</section>
+
+<section>
+<h2 id="words-and-senses">Words and senses</h2>
+<p>A thesaurus contains lexical items that have been categorized, allowing users to go from meaning to words or phrases that express that meaning. 
+Lemon-tree captures such words and senses using LEMON terminology. A word or phrase is captured as an Ontolex LexicalEntry and each of their senses is captured as a LexicalSense. 
+An example is presented below.
+
+<pre class="example turtle nohighlight" title="A lexical entry in lemon-tree">
+    &lt;entry-freedom&gt; a ontolex:LexicalEntry ;
+        skos:prefLabel "freedom"@en .
+</pre>
+
+<pre class="example turtle nohighlight" title="A lexical sense in lemon-tree">
+    &lt;sense-freedom-3&gt; a ontolex:LexicalSense ;
+        skos:prefLabel "freedom"@en ;
+        ontolex:isSenseOf &lt;entry-freedom&gt; .
+</pre>
+
+For further details on the notion of LexicalEntry and LexicalSense, we refer the reader to the LEMON documentation. Advice on how to best capture other aspects of lexical items, such as their part of speech and other labels, can be found there too.</p>
+
+<section>
+<h2 id="categorization">Categorization</h2>
+<p>Thesauri do not categorize lexical items or word-forms but lexical senses: words or phrases in a particular sense. 
+This statement may at first glance appear counter-intuitive for users of thesauri. After all, a number of these resources simply present head-forms of a word (or phrase) as member of their categories. 
+In the Shakespeare Thesaurus, for instance, category “01.02 sky” contains the following item:
+<blockquote><strong>heaven, n.</strong></blockquote>
+The head-form “heaven” in this example is similar in appearance to a headword, or lemma, found in typical dictionaries. 
+This gives off the appearance that lexical items are categorized by thesauri. The following fictitious dictionary entry, however, demonstrates otherwise.
+<blockquote><strong>heaven, n.</strong> 1) abode of one or more gods 2) the sky</blockquote>
+It is evident that the “heaven, n.” entry in the Shakespeare Thesaurus, found in the category “01.02 sky”, represents the lexical item heaven in not all of its senses listed above but in only the second sense. 
+Werner Hüllen, who has thoroughly researched the topical tradition of thesauri, acknowledges that the entries in thesauri indeed represent senses rather than lexical items: 
+<blockquote cite="W. Hüllen, English Dictionaries, 800-1700: The Topical Tradition (Oxford, 1999), p. 13.">
+Strictly speaking, topical dictionaries [i.e., thesauri] have no headwords but head-forms as linguistic dummies for their meanings [i.e., senses]. Admittedly, a highly developed linguistic awareness is needed to keep this difference in mind when using a topical dictionary. Hence the humorous criticism that in order to work with such dictionaries you must be so highly educated that you do not need to consult a dictionary at all.
+</blockquote>
+Confirmation that thesauri categorize lexical senses can be found in the Historical Thesaurus of the Oxford English Dictionary. 
+This edition takes advantage of both the topical structure of the thesaurus and the full dictionary entries of the Oxford English Dictionary. 
+This rich set-up allows for a closer investigation of the relation between a thesaurus and entries in a dictionary. Dictionary entries in the Oxford English Dictionary have a number of senses. 
+Each sense listed contains a reference to a thesaurus category. 
+Conversely, the thesaurus categories in this edition list the senses they contain and provide hyperlinks not simply to dictionary entries but to specific senses <em>within</em> these entries. 
+As such, it is evident that this thesaurus indeed categorizes senses of lexical entries, and not lexical entries as a whole. 
+In the next section, we will provide more detail on categorization and how to capture it using Lemon-tree. 
+</p>
+</section>
+
+<section>
+<h2 id="categorization-and-lexicalization">Categorization and lexicalization</h2>
+<p>There is something special going on in our main example thesaurus, the Historical Thesaurus of the Oxford English Dictionary. 
+In this thesaurus, we see that words in a particular sense directly express their concept. They <em>lexicalize</em> that concept. 
+In the figure below, "freedom" and "liberty" can directly be used if one wants to express "Liberty/freedom". 
+This used to be the case for "freeship" and "franchise", too, in the history of the English language. 
+(As this is no longer the case, these word senses are marked with a cross in front of them.) 
+<figure>
+    <img src="img/thesaurus-sample-HTOED.svg" width="80%"/><figcaption>Sample from the Historical Thesaurus of the Oxford English Dictionary</figcaption>
+</figure>
+</p>
+
+<p>Such lexicalization is not present in every thesaurus, however. In fact, it is more often the case than not in thesauri. 
+The sample below has been taken from the Scots Thesaurus and illustrates this lack of lexicalization rather well. 
+<figure>
+    <img src="img/thesaurus-sample-ScT.svg" width="70%"/><figcaption>Sample from the Scots Thesaurus</figcaption>
+</figure>
+Here, the sense `to disperse scantily` of "blander" can hardly be said to directly express "Sowing". 
+This is likewise the case for the sense `a basket or container` of "happer". 
+These senses may have a relation to the concept of "Sowing" but they do not lexicalize that concept. 
+Their meaning causes them to be listed as part of the concept instead, that they are senses <em>in</em> that concept, as it were.</p>
+
+<p>Senses that lexicalize a concept are by definition senses also found <em>in</em> that concept. 
+In other words, lexicalization is a special form of categorization. 
+This distinction can be captured using Lemon-tree.</p>
+
+<p>Examples of categorization and lexicalization in Lemon-tree will be provided after providing details on the relevant terminology. 
+For categorizing lexical senses, Lemon-tree offers the property <a href="#isSenseInConcept">isSenseInConcept</a>.
+For asserting that senses are lexicalizations of a concept, Ontolex offers the property <strong>isLexicalizedSenseOf</strong>.</p>
+
+<div id="isSenseInConcept" class="entity">
+<h3>isSenseInConcept (Object Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#isSenseInConcept" class="uri">https://w3id.org/lemon-tree#isSenseInConcept</a></p>
+</div>
+<div class='comment'>
+<p>This property relates a <strong>lexical sense</strong> to a <strong>concept</strong> that captures its meaning to some extent (that is, partially or even fully).</p>
+</div>
+<div class='description'>
+<p><strong>SubPropertyOf:</strong> dcterms:subject</p>
+<p><strong>Domain:</strong> ontolex:LexicalSense</p>
+<p><strong>Range:</strong> skos:Concept</p>
+</div>
+</div>
+
+<p>The relation between <a href="#isSenseInConcept">isSenseInConcept</a> and terminology from Ontolex has been added to the Lemon-tree model.
+As a result, the Ontolex property <strong>isLexicalizedSenseOf</strong> is deemed a sub property of <a href="#isSenseInConcept">isSenseInConcept</a>.
+Moreover, the property <strong>evokes</strong> has an additional property chain of Ontolex <strong>sense</strong> followed by <a href="#isSenseInConcept">isSenseInConcept</a>.
+These relations are shown below.
+
+<div id="ontolex-isLexicalizedSenseOf" class="entity">
+<h3>ontolex:isLexicalizedSenseOf (Object Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="http://www.w3.org/ns/lemon/ontolex#isLexicalizedSenseOf" class="uri">http://www.w3.org/ns/lemon/ontolex#isLexicalizedSenseOf</a></p>
+</div>
+<div class='description'>
+<p><strong>SubPropertyOf:</strong> isSenseInConcept</p>
+<p><strong>Domain:</strong> ontolex:LexicalSense</p>
+<p><strong>Range:</strong> ontolex:LexicalConcept</p>
+</div>
+</div>
+
+<div id="ontolex-evokes" class="entity">
+<h3>ontolex:evokes (Object Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="http://www.w3.org/ns/lemon/ontolex#evokes" class="uri">http://www.w3.org/ns/lemon/ontolex#evokes</a></p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> ontolex:LexicalEntry</p>
+<p><strong>Range:</strong> ontolex:LexicalConcept</p>
+<p><strong>PropertyChain:</strong> ontolex:sense o isSenseInConcept</p>
+</div>
+</div>
+
+</p>
+
+<p>The examples below show how categorization and lexicalization can be captured by employing the properties mentioned above: <a href="#isSenseInConcept">isSenseInConcept</a> from Lemon-tree and <strong>isLexicalizedSenseOf</strong> from Ontolex. 
+Notice that the property to express lexicalization is used in the example of the Historical Thesaurus of the Oxford English Dictionary. 
+There, the use of this property automatically indicates that the category is not only a SKOS <strong>Concept</strong>, but a concept that is expressed or lexicalized. 
+Such a concept is called a <strong>LexicalConcept</strong> according to Ontolex. <span class="todo" title="Look up language tag for Lowland Scots">[lang-tag]</span>
+<pre class="example turtle nohighlight" title="Categorization in lemon-tree">
+    &lt;sense-happer-basket&gt; a ontolex:LexicalSense ;
+        skos:prefLabel "happer" ;
+        tree:isSenseInConcept &lt;sowing&gt; .
+    
+    &lt;sowing&gt; a skos:Concept .
+</pre>
+
+<pre class="example turtle nohighlight" title="Lexicalization in lemon-tree">
+    &lt;sense-freedom-3&gt; a ontolex:LexicalSense ;
+        skos:prefLabel "freedom"@en ;
+        ontolex:isLexicalizedSenseOf &lt;freedom-liberty&gt; .
+    
+    &lt;freedom-liberty&gt; a ontolex:LexicalConcept .
+</pre>
+</p>
+</section>
+
+<section>
+<h2 id="synonymy">Synonymy</h2>
+<p>Categories in a topical system group lexical senses into sets with a similar or related meaning. 
+In some thesauri, though certainly not all, sets exist that indicate an even stronger semantic tie: one of synonymy. 
+A case in point is the Historical Thesaurus of the Oxford English Dictionary, in which senses placed at the same category are deemed loosely synonymous. 
+That is to say, grouped senses in this thesaurus have a similarity in meaning and are interchangeable in specific contexts. 
+The introduction to the thesaurus Love, Sex, Marriage discusses synonymy found in thesauri as follows:
+<blockquote>
+Grouping terms together in a thesaurus, even in a thesaurus as detailed as this, does not imply absolute synonymy. Many scholars doubt whether absolute interchangeability is actually possible [...].
+</blockquote>
+Instead of absolute synonymy, then, it is common to find a looser form of synonymy in thesauri. (In fact, it has been called “the staple of thesauruses”.<span class="todo" title="Murphy, ‘Meaning Relations in Dictionaries’, p. 448.">[foot]</span>) This form is often referred to as near-synonymy.<span class="todo" title="M. L. Murphy, ‘Meaning Relations in Dictionaries: Hyponymy, Meronymy, Synonymy, Antonymy, and Contrast’, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 439–56 (pp. 447–8).">[foot]</span></p>
+
+<p>In Lemon-tree, near-synonymy is evident for lexical senses that lexicalize the same concept. 
+After all, such senses directly express the same meaning. 
+Thus, all the senses that lexicalize category "Freedom/liberty" of the Historical Thesaurus of the Oxford English Dictionary are known to be near-synonyms. 
+<pre class="example turtle nohighlight" title="Synonymy in lemon-tree">
+    &lt;sense-freedom-3&gt; a ontolex:LexicalSense ;
+        ontolex:isLexicalizedSenseOf &lt;freedom-liberty&gt; .
+    &lt;sense-freeship-2&gt; a ontolex:LexicalSense ;
+        ontolex:isLexicalizedSenseOf &lt;freedom-liberty&gt; .
+    &lt;sense-franchise-1a&gt; a ontolex:LexicalSense ;
+        ontolex:isLexicalizedSenseOf &lt;freedom-liberty&gt; .
+    &lt;sense-liberty1-1b&gt; a ontolex:LexicalSense ;
+        ontolex:isLexicalizedSenseOf &lt;freedom-liberty&gt; .
+</pre>
+It is possible to link synonyms together also via a direct relation between LexicalSenses, or to form groups of synonyms known as synsets. For information and advice on both these aspects, we refer the reader to the LEMON specification.
+</p>
+</section>
+</section>
+
+<section>
+<h2 id="levels-and-depth">Levels and depth</h2>
+<p>
+...
+</p>
+
+<section>
+<h2 id="tree-levels">Tree levels</h2>
+<p>
+...
+</p>
+</section>
+
+<section>
+<h2 id="conceptual-levels">Conceptual levels</h2>
+<p>
+...
+</p>
+</section>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+@base <https://w3id.org/lemon-tree> .
+@prefix tree: <https://w3id.org/lemon-tree#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix cc: <http://creativecommons.org/ns#> .
+
+
+### Ontology ###
+
+<> a owl:Ontology ;
+    dcterms:title "Lemon tree"@en ;
+    dcterms:description "An RDF vocabulary that brings LEMON and SKOS together in order to capture the content of lexicographical resources known as thesauri. These resources organize words and their senses according to a hierarchy that conveys their meaning."@en ;
+    owl:imports <http://www.w3.org/ns/lemon/ontolex> , <http://www.w3.org/2004/02/skos/core> ;
+    owl:versionInfo "1.0"^^xsd:decimal ;
+    dcterms:issued "2018-09-09"^^xsd:date ;
+    dcterms:modified "2018-09-09"^^xsd:date ;
+    vann:preferredNamespacePrefix "tree" ;
+    vann:preferredNamespaceUri "https://w3id.org/lemon-tree#" ;
+    dcterms:rights "CC-Zero" ;
+    cc:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    dcterms:creator <urn:ssstolk> ; ### TODO: me
+    rdfs:seeAlso <https://w3id.org/lemon-tree/> ;
+    .
+
+
+### Term: isSenseInConcept ###
+
+<#isSenseInConcept> a owl:ObjectProperty ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "is sense in concept"@en ;
+    rdfs:label "is zin binnen concept"@nl ;
+    rdfs:label "ist Sinn im Konzept"@de ;
+    rdfs:label "est un sens dans concept"@fr ;
+    rdfs:comment "This property relates a lexical sense to a concept that captures its meaning to some extent (that is, partially or even fully)."@en ;
+    rdfs:subPropertyOf dcterms:subject ;
+    rdfs:domain ontolex:LexicalSense ;
+    rdfs:range skos:Concept ;
+    .
+
+ontolex:isLexicalizedSenseOf a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/lemon/ontolex> ;
+    rdfs:label "is lexicalized sense of"@en ;
+    rdfs:subPropertyOf <#isSenseInConcept> ;
+    .
+
+ontolex:evokes a owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://www.w3.org/ns/lemon/ontolex> ;
+    rdfs:label "evokes"@en ;
+    owl:propertyChainAxiom ( ontolex:sense <#isSenseInConcept> ) ;
+    .
+
+### Term: ConceptualLevel ###
+
+<#ConceptualLevel> a owl:Class ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "Conceptual level"@en ;
+    rdfs:label "Conceptueel niveau"@nl ;
+    rdfs:label "Konzeptuelles Niveau"@de ;
+    rdfs:comment "A collection of concepts which are considered to be at the same conceptual depth (that is, semantically distanced from the root node). This conceptual depth may for certain thesauri coincide with the tree depth, but that is not necessarily the case for all thesauri."@en ;
+    rdfs:subClassOf skos:Collection ;
+    .
+
+<#conceptualLevels> a owl:ObjectProperty ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "has conceptual levels"@en ;
+    rdfs:label "heeft conceptuele niveaus"@nl ;
+    rdfs:label "hat konzeptuelles Niveaus"@de ;
+    rdfs:comment "Provides the list of conceptual levels for a concept scheme."@en ;
+    rdfs:domain skos:ConceptScheme ;
+    rdfs:range rdf:List ;
+    .
+
+<#conceptualDepth> a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "has conceptual depth"@en ;
+    rdfs:label "heeft conceptuele diepte"@nl ;
+    rdfs:label "hat konzeptuelle Tiefe"@de ;
+    rdfs:comment "The depth of the conceptual level that groups a number of concepts. The conceptual depth in thesaurus taxonomies can only increase in a branch, but never decrease."@en ;
+    skos:scopeNote "The first conceptual level in a thesaurus is at depth 0; the next one at depth 1, etc."@en ;
+    rdfs:domain [ a owl:Class ;
+                  owl:unionOf ( skos:Concept <#ConceptualLevel> ) ] ;
+    rdfs:range xsd:integer ;
+    .
+
+### Term: TreeLevel ###
+
+<#TreeLevel> a owl:Class ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "Tree level"@en ;
+    rdfs:label "Niveau in boom"@nl ;
+    rdfs:label "Niveau im Baum"@de ; ### im Baum
+    rdfs:comment "A collection of concepts which are at the same depth of the tree (that is, distanced from the root node)."@en ;
+    rdfs:subClassOf skos:Collection ;
+    .
+
+<#treeLevels> a owl:ObjectProperty ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "has tree levels"@en ;
+    rdfs:label "heeft niveaus in boom"@nl ;
+    rdfs:label "hat Niveaus im Baum"@de ;
+    rdfs:comment "Provides the list of tree levels for a concept scheme."@en ;
+    rdfs:domain skos:ConceptScheme ;
+    rdfs:range rdf:List ;
+    .
+
+<#treeDepth> a owl:DatatypeProperty ;
+    rdfs:isDefinedBy <> ;
+    rdfs:label "has tree depth"@en ;
+    rdfs:label "heeft diepte in boom"@nl ;
+    rdfs:label "hat Tiefe im Baum"@de ;
+    rdfs:comment "The smallest number of edges between the subject node (or tree level) and a root node of that same tree. A root node is therefore at tree depth 0; its child nodes at depth 1, etc."@en ;
+    rdfs:domain [ a owl:Class ;
+                  owl:unionOf ( skos:Concept <#TreeLevel> ) ] ;
+    rdfs:range xsd:integer ;
+    .
