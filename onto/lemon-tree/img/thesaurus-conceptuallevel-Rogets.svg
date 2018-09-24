@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="45cm" height="17cm" viewBox="0 -32 883 333" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <polygon style="fill: #e5e5e5" points="402,100 352,100 402,187 452,187 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" points="402,100 352,100 402,187 452,187 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" points="402,100 352,100 402,187 452,187 "/>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="402" y="100" width="480" height="90"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" x="402" y="100" width="480" height="90"/>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="2" y="-7" width="880" height="90"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" x="2" y="-7" width="880" height="90"/>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="322" y="206" width="560" height="94"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" x="322" y="206" width="560" height="94"/>
+  </g>
+  <g>
+    <polygon style="fill: #e5e5e5" points="322,100 202,100 322,300 442,300 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" points="322,100 202,100 322,300 442,300 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" points="322,100 202,100 322,300 442,300 "/>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="2" y="100" width="320" height="90"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #e5e5e5" x="2" y="100" width="320" height="90"/>
+  </g>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="168.8" cy="24" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="168.8" cy="24" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="168.8" cy="24" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="170.975" y="58.9">
+    <tspan x="170.975" y="58.9">Abstract</tspan>
+    <tspan x="170.975" y="74.9">Relations</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="270.302" y1="113.402" x2="188" y2="38"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="270.302" cy="133.402" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="270.302" cy="133.402" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="270.302" cy="133.402" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="270" y="171">
+    <tspan x="270" y="171">Quantity</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="150.725" y1="38.399" x2="70.0266" y2="112.801"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="70.0266" cy="132.801" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="70.0266" cy="132.801" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="70.0266" cy="132.801" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="69.725" y="170.399">
+    <tspan x="69.725" y="170.399">Existence</tspan>
+  </text>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="562.775" cy="23.7" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="562.775" cy="23.7" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="562.775" cy="23.7" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="564.95" y="58.6">
+    <tspan x="564.95" y="58.6">Voluntary</tspan>
+    <tspan x="564.95" y="74.6">Powers</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="664.277" y1="113.102" x2="583" y2="36"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="664.277" cy="133.102" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="664.277" cy="133.102" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="664.277" cy="133.102" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="663.975" y="169.7">
+    <tspan x="663.975" y="169.7">Intersocial</tspan>
+    <tspan x="663.975" y="185.7">Volition</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="544.7" y1="38.099" x2="464.002" y2="112.501"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="464.002" cy="132.501" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="464.002" cy="132.501" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="464.002" cy="132.501" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="463.7" y="170.099">
+    <tspan x="463.7" y="170.099">Individual</tspan>
+    <tspan x="463.7" y="186.099">Volition</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="564.277" y1="218.102" x2="481.975" y2="142.7"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="564.277" cy="238.102" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="564.277" cy="238.102" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="564.277" cy="238.102" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="563.975" y="275.7">
+    <tspan x="563.975" y="275.7">Antagonism</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="444.7" y1="143.099" x2="364.002" y2="217.501"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="364.002" cy="237.501" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="364.002" cy="237.501" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="364.002" cy="237.501" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="363.7" y="275.099">
+    <tspan x="363.7" y="275.099">Volition</tspan>
+    <tspan x="363.7" y="291.099">in General</tspan>
+  </text>
+  <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="764.277" y1="218.514" x2="686" y2="141"/>
+  <g>
+    <ellipse style="fill: #fffb6f" cx="764.277" cy="238.514" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="764.277" cy="238.514" rx="20" ry="20"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="764.277" cy="238.514" rx="20" ry="20"/>
+  </g>
+  <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="763.975" y="276.113">
+    <tspan x="763.975" y="276.113">Possessive</tspan>
+    <tspan x="763.975" y="292.113">Relations</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:oblique;font-weight:700" x="872" y="-20">
+    <tspan x="872" y="-20">Conceptual level</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:normal" x="872" y="33">
+    <tspan x="872" y="33">depth: 0</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:normal" x="872" y="139">
+    <tspan x="872" y="139">depth: 1</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:normal" x="873" y="244">
+    <tspan x="873" y="244">depth: 2</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:700" x="870" y="12">
+    <tspan x="870" y="12">Classes</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:700" x="871" y="119">
+    <tspan x="871" y="119">Divisions</tspan>
+  </text>
+  <text font-size="12.8" style="fill: #06a8e4;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:700" x="872" y="224">
+    <tspan x="872" y="224">Sections</tspan>
+  </text>
+</svg>

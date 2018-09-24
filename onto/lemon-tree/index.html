@@ -34,58 +34,71 @@
 
 <section id='abstract'>
 <p>
-Lemon-tree is an RDF vocabulary for capturing the content of lexicographical resources known as thesauri. 
+Lemon-tree is an <a class="citation" rel="citation" href="#ref-RDF">RDF</a> vocabulary for capturing the content of lexicographical resources known as thesauri. 
 These resources organize words and their senses according to a hierarchy that conveys their meaning. 
-Lemon-tree specifies how thesauri can be captured in RDF, reusing existing standards: SKOS for capturing hierarchies, LEMON for lexical and lexicographic material. 
+Lemon-tree specifies how thesauri can be captured in RDF, reusing existing standards: <a class="citation" rel="citation" href="#ref-SKOS">SKOS</a> for capturing hierarchies, <a class="citation" rel="citation" href="#ref-LEMON">LEMON</a> for lexical and lexicographic material. 
 To that end, Lemon-tree offers a guideline in how these two models fit together and adds terminology for perceived lacunae.
 </p>
 </section>
 
 <section>
 <h2 id="introduction">Introduction</h2>
-<p>A thesaurus is a special kind of dictionary. 
+<p>
+A thesaurus is a special kind of dictionary. 
 Dictionaries commonly employ an alphabetical ordering of their words and phrases. 
 Thesauri, by contrast, organize their items according to their meaning. 
 They do this by means of a topical structure: a tree of concepts, if you will. 
 This overarching structure offers generic meanings to users as a starting point, which branch out to meanings increasingly specific. 
 Once users locate the meaning which they are interested in, they are presented with the words or phrases that express that meaning. 
-This overarching topical system in a thesaurus thus allows the user to move from meaning to lexical item.</p>
+This overarching topical system in a thesaurus thus allows the user to move from meaning to lexical item.
+</p>
 
-<p>Lemon-tree is an RDF vocabulary that bridges SKOS and LEMON in order to capture the content of thesauri. 
-The SKOS vocabulary already allows capturing concepts in RDF and organizing them in hierarchies. 
-LEMON allows capturing lexical entries, senses, and further lexicographic material. 
+<p>
+Lemon-tree is an <a class="citation" rel="citation" href="#ref-RDF">RDF</a> vocabulary that bridges <a class="citation" rel="citation" href="#ref-SKOS">SKOS</a> and <a class="citation" rel="citation" href="#ref-LEMON">LEMON</a> in order to capture the content of thesauri. 
+The SKOS vocabulary already allows for sharing concepts in RDF and organizing them in hierarchies. 
+LEMON allows for sharing lexical entries, senses, and further lexicographic material. 
 Terminology from both, then, are valuable for sharing thesauri on the Web. 
 Lemon-tree therefore aims to facilitate their combined use for that purpose.
 To that end, Lemon-tree offers a guideline in how these two models fit together and adds some terminology for perceived lacunae (e.g., for categorizing senses and for expressing levels in the hierarchy).
 </p>
-<p>The <strong>lemon-tree</strong> model employs the following namespace:</p>
+
+<p>
+The <strong>lemon-tree</strong> model employs the following namespace:
+</p>
 <a href="https://w3id.org/lemon-tree" class="uri">https://w3id.org/lemon-tree</a>#
-<p>The <strong>lemon-tree</strong> model can be retrieved in two ways:
+
+<p>
+The <strong>lemon-tree</strong> model can be retrieved in two ways:
+</p>
 <ol>
 <li>access its namespace with the preferred Content-Type "text/turtle" in the request</li>
 <li>use this direct link: <a href="https://w3id.org/lemon-tree/lemon-tree.ttl" class="uri">https://w3id.org/lemon-tree/lemon-tree.ttl</a></li>
 </ol>
-</p>
 
 
 <section>
 <h2 id="purpose">Purpose of the model</h2>
 <p>
 Lemon-tree does not aim to supplant existing and well-known standards that may be used for sharing thesaurus content on the Web. 
-Instead, the purpose of this model and its documentation are to provide a guideline and to offer additional terminology where needed.
-For further advice and recommendations, we therefore refer the reader to the documentation on <span class="todo" title="https://www.w3.org/TR/skos-reference/">SKOS</span>, <span class="todo" title="https://www.w3.org/2016/05/ontolex/">LEMON</span>, and its Lexicography Module.
+Instead, the purpose of this model and its documentation are to provide a guideline and to offer additional terminology where appropriate. 
+The need for such terminology has been identified in earlier publications, e.g. [<a class="citation" rel="citation" href="#ref-Stolk-2017">Stolk-2017</a>]. 
+For further advice and recommendations, we refer the reader to the documentation on the existing standards that Lemon-tree adopts for thesauri: <a class="citation" rel="citation" href="#ref-SKOS">SKOS</a> and the <a class="citation" rel="citation" href="#ref-SKOS-PRIMER">SKOS primer</a>, <a class="citation" rel="citation" href="#ref-LEMON">LEMON</a> and its Lexicography Module. 
 </p>
 </section>
 
 <section>
 <h2 id="conventions-in-this-document">Conventions in this document</h2>
-<p>This document contains images depicting the content of existing thesauri. A legend to these images is provided below.
+<p>
+This document contains images depicting the content of existing thesauri. A legend to these images is provided below.
 <figure>
     <img src="img/legend.svg" width="50%"/><figcaption>Legend</figcaption>
 </figure>
 </p>
 
-<p>Examples of Lemon-tree content in this document are provided using the <a href="http://www.w3.org/TR/turtle/">Turtle RDF Syntax</a>. The following namespaces are used in these examples:</p>
+<p>
+Examples of Lemon-tree content in this document are provided using the <a class="citation" rel="citation" href="#ref-TURTLE">Turtle RDF Syntax</a>. 
+The following namespaces are used in these examples:
+</p>
 <pre><code class="cm">@prefix tree: &lt;https://w3id.org/lemon-tree#&gt; .
 @prefix ontolex: &lt;http://www.w3.org/ns/lemon/ontolex#&gt; .
 @prefix skos: &lt;http://www.w3.org/2004/02/skos#&gt; .
@@ -95,54 +108,86 @@ For further advice and recommendations, we therefore refer the reader to the doc
 @prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</code></pre>
 
-<p>The examples in this document are based on existing thesauri. Each of these has its own content and purpose.</p>
+<p>
+The examples in this document are based on existing thesauri. 
+Each of these works has its own content and purpose. 
+</p>
 <ul>
 <li>Historical Thesaurus of the Oxford English Dictionary (HTOED)</li>
 <li>Shakespeare Thesaurus (ShT)</li>
 <li>Scots Thesaurus (ScT)</li>
 <li>Love, Sex, Marriage (LSM)</li>
+<li>Roget's Thesaurus (Roget's)</li>
 </ul>
-<p>The selection was made to illustrate various characteristics of thesauri.</p>
+<p>
+The selection was made to illustrate various characteristics of thesauri in this document.
+</p>
 </section>
 </section>
 
 <section>
 <h2 id="thesaurus">Thesaurus</h2>
-<p>There are many ways to present or visualize a thesaurus. Even so, the information conveyed by each of them tends to consists of the same main components:</p>
+<p>
+There are many ways to present or visualize a thesaurus. Even so, the information conveyed by each of them tends to consists of the same main components:
+</p>
 <ol>
 <li>a topical system</li>
-<li>a number of words and senses<br/>(possibly with synonymy explicitly indicated)</li>
+<li>a number of words or phrases and their senses<br/>(possibly with synonymy explicitly indicated)</li>
 </ol>
+<p>
+The figure below displays these main components for a sample of the Historical Thesaurus of the Oxford English Dictionary. 
+Four nouns are shown to be categorized under "Freedom/liberty". 
+(The nouns marked here with a cross in front of them are ones which no longer exist in the sense of `freedom or liberty`.) 
+As these four nouns convey the same sense, or used to do so, they are thought to be loosely synonymous. 
+</p>
 
 <figure>
     <img src="img/thesaurus-sample-HTOED.svg" width="80%"/><figcaption>Thesaurus components [based on HTOED]</figcaption>
 </figure>
-<p>In a thesaurus, then, a word sense is located (or categorized) within a topical system, may be part of a set of synonyms, and is typically accompanied by additional information such as its part of speech and usage features. We discuss these components in the following sections.</p>
+<p>
+In a thesaurus, then, a word or phrase in a specific sense is located (or categorized) within a topical system, may be part of a set of synonyms, and is typically accompanied by additional information such as its part of speech and usage features. 
+We discuss these main components in the following sections.
+</p>
 </section>
 
 <section>
 <h2 id="topical-system">Topical system</h2>
-<p>This overarching structure which is used to organize lexical items is not unlike the taxonomies of animals and plants created by the eighteenth-century biologist Carl Linnaeus (1707-1778) and later expanded by Georges Cuvier (1769-1832).<span class="todo" title="F. Faria, ‘Georges Cuvier et le premier paradigme de la paléontologie’, Revue de Paléobiologie 32:2 (2013), 297–302.">[foot]</span> In these tree-like structures, the most generic or abstract concepts are used as roots, which branch out to concepts increasingly specific in meaning.</p>
-<p>Topical systems in thesauri go by different names. Some thesauri refer to their overarching system as the classification system.<span class="todo" title="LSM, DSSPIEL, and the paper editions of TOE">[foot]</span> Others position their topical structure as consisting of categories rather than classes, suggesting that their lexis has been categorized rather than classified.<span class="todo" title="HTE, HTS, ScT, and the electronic edition of TOE">[foot]</span> For topical systems used to organize lexis, this document prefers the terms category and categorization over class and classification.<span class="todo" title="Jacob, ‘Classification and Categorization’, pp. 527–31.">[foot]</span></p>
-<p>Lemon-tree captures the topical system using terminology from SKOS. This standard from W3C was designed specifically for knowledge organization systems, including topical systems. 
+<p>
+The topical system of a thesaurus is its overarching structure used to organize lexical items. 
+This structure is not unlike the taxonomies of animals and plants created by the eighteenth-century biologist Carl Linnaeus (1707-1778) and later expanded by Georges Cuvier (1769-1832).<span class="todo" title="F. Faria, ‘Georges Cuvier et le premier paradigme de la paléontologie’, Revue de Paléobiologie 32:2 (2013), 297–302.">[foot]</span> 
+In these tree-like structures, the most generic or abstract concepts are used as roots, which branch out to concepts increasingly specific in meaning.
+</p>
+<p>
+Topical systems in thesauri go by different names. Some thesauri refer to their overarching system as the classification system.<span class="todo" title="LSM, DSSPIEL, and the paper editions of TOE">[foot]</span> 
+Others position their topical structure as consisting of categories rather than classes, suggesting that their lexis has been categorized rather than classified.<span class="todo" title="HTE, HTS, ScT, and the electronic edition of TOE">[foot]</span> 
+For topical systems used to organize lexis, this document prefers the terms category and categorization over class and classification.<span class="todo" title="Jacob, ‘Classification and Categorization’, pp. 527–31.">[foot]</span>
+</p>
+<p>
+Lemon-tree captures the topical system using terminology from SKOS. 
+This standard from W3C was designed specifically for knowledge organization systems, including topical systems. 
 Thus, the topical system as a whole would be captured as follows for the Historical Thesaurus of the Oxford English Dictionary.
 <pre class="example turtle nohighlight" title="A topical system in lemon-tree">
     &lt;htoed&gt; a skos:ConceptScheme ;
         skos:prefLabel "Historical Thesaurus of the Oxford English Dictionary"@en .
 </pre>
-Its category "Freedom/liberty" would be captured as shown below. This example includes the relation to the parent category "Lack of subjection". Note that categories are captured as SKOS Concepts.
+Its category "Freedom/liberty" would be captured as shown below. 
+This example includes the relation to the parent category "Lack of subjection". 
+Note that categories are captured as SKOS Concepts.
 <pre class="example turtle nohighlight" title="A category in lemon-tree">
     &lt;freedom-liberty&gt; a skos:Concept ;
         skos:prefLabel "Freedom/liberty"@en ;
         skos:inScheme &lt;htoed&gt; ; 
         skos:broader &lt;lack-of-subjection&gt; .
 </pre>
-As we will see further on in the document, it is possible to use a specialized variant of SKOS Concept when categorizing senses. This topic will be treated in the section <a href="#categorization-and-lexicalization">Categorization and lexicalization</a>.</p>
+As we will see further on in the document, it is possible to use a specialized variant of SKOS Concept when categorizing senses. 
+This topic will be treated in the section <a href="#categorization-and-lexicalization">Categorization and lexicalization</a>.
+</p>
 </section>
 
 <section>
 <h2 id="words-and-senses">Words and senses</h2>
-<p>A thesaurus contains lexical items that have been categorized, allowing users to go from meaning to words or phrases that express that meaning. 
+<p>
+A thesaurus contains lexical items that have been categorized, allowing users to go from meaning to words or phrases that express that meaning. 
 Lemon-tree captures such words and senses using LEMON terminology. A word or phrase is captured as an Ontolex LexicalEntry and each of their senses is captured as a LexicalSense. 
 An example is presented below.
 
@@ -157,12 +202,16 @@ An example is presented below.
         ontolex:isSenseOf &lt;entry-freedom&gt; .
 </pre>
 
-For further details on the notion of LexicalEntry and LexicalSense, we refer the reader to the LEMON documentation. Advice on how to best capture other aspects of lexical items, such as their part of speech and other labels, can be found there too.</p>
+For further details on the notion of LexicalEntry and LexicalSense, we refer the reader to the LEMON documentation. 
+Advice on how to best capture other aspects of lexical items, such as their part of speech and other labels, can be found there too.
+</p>
 
 <section>
 <h2 id="categorization">Categorization</h2>
-<p>Thesauri do not categorize lexical items or word-forms but lexical senses: words or phrases in a particular sense. 
-This statement may at first glance appear counter-intuitive for users of thesauri. After all, a number of these resources simply present head-forms of a word (or phrase) as member of their categories. 
+<p>
+Thesauri do not categorize lexical items or word-forms but lexical senses: words or phrases in a particular sense. 
+This statement may at first glance appear counter-intuitive for users of thesauri. 
+After all, a number of these resources simply present head-forms of a word (or phrase) as member of their categories. 
 In the Shakespeare Thesaurus, for instance, category “01.02 sky” contains the following item:
 <blockquote><strong>heaven, n.</strong></blockquote>
 The head-form “heaven” in this example is similar in appearance to a headword, or lemma, found in typical dictionaries. 
@@ -185,7 +234,8 @@ In the next section, we will provide more detail on categorization and how to ca
 
 <section>
 <h2 id="categorization-and-lexicalization">Categorization and lexicalization</h2>
-<p>There is something special going on in our main example thesaurus, the Historical Thesaurus of the Oxford English Dictionary. 
+<p>
+There is something special going on in our main example thesaurus, the Historical Thesaurus of the Oxford English Dictionary. 
 In this thesaurus, we see that words in a particular sense directly express their concept. They <em>lexicalize</em> that concept. 
 In the figure below, "freedom" and "liberty" can directly be used if one wants to express "Liberty/freedom". 
 This used to be the case for "freeship" and "franchise", too, in the history of the English language. 
@@ -195,7 +245,9 @@ This used to be the case for "freeship" and "franchise", too, in the history of 
 </figure>
 </p>
 
-<p>Such lexicalization is not present in every thesaurus, however. In fact, it is more often the case than not in thesauri. 
+<p>
+Such lexicalization is not present in every thesaurus, however. 
+In fact, it is more often the case than not in thesauri that is is absent. 
 The sample below has been taken from the Scots Thesaurus and illustrates this lack of lexicalization rather well. 
 <figure>
     <img src="img/thesaurus-sample-ScT.svg" width="70%"/><figcaption>Sample from the Scots Thesaurus</figcaption>
@@ -203,15 +255,20 @@ The sample below has been taken from the Scots Thesaurus and illustrates this la
 Here, the sense `to disperse scantily` of "blander" can hardly be said to directly express "Sowing". 
 This is likewise the case for the sense `a basket or container` of "happer". 
 These senses may have a relation to the concept of "Sowing" but they do not lexicalize that concept. 
-Their meaning causes them to be listed as part of the concept instead, that they are senses <em>in</em> that concept, as it were.</p>
+Their meaning causes them to be listed as part of the concept instead, that they are senses <em>in</em> that concept, as it were.
+</p>
 
-<p>Senses that lexicalize a concept are by definition senses also found <em>in</em> that concept. 
+<p>
+Senses that lexicalize a concept are by definition senses also found <em>in</em> that concept. 
 In other words, lexicalization is a special form of categorization. 
-This distinction can be captured using Lemon-tree.</p>
+This distinction can be captured using Lemon-tree.
+</p>
 
-<p>Examples of categorization and lexicalization in Lemon-tree will be provided after providing details on the relevant terminology. 
+<p>
+Examples of categorization and lexicalization in Lemon-tree will be provided after providing details on the relevant terminology. 
 For categorizing lexical senses, Lemon-tree offers the property <a href="#isSenseInConcept">isSenseInConcept</a>.
-For asserting that senses are lexicalizations of a concept, Ontolex offers the property <strong>isLexicalizedSenseOf</strong>.</p>
+For asserting that senses are lexicalizations of a concept, Ontolex offers the property <strong>isLexicalizedSenseOf</strong>.
+</p>
 
 <div id="isSenseInConcept" class="entity">
 <h3>isSenseInConcept (Object Property)</h3>
@@ -228,7 +285,8 @@ For asserting that senses are lexicalizations of a concept, Ontolex offers the p
 </div>
 </div>
 
-<p>The relation between <a href="#isSenseInConcept">isSenseInConcept</a> and terminology from Ontolex has been added to the Lemon-tree model.
+<p>
+The relation between <a href="#isSenseInConcept">isSenseInConcept</a> and terminology from Ontolex has been added to the Lemon-tree model.
 As a result, the Ontolex property <strong>isLexicalizedSenseOf</strong> is deemed a sub property of <a href="#isSenseInConcept">isSenseInConcept</a>.
 Moreover, the property <strong>evokes</strong> has an additional property chain of Ontolex <strong>sense</strong> followed by <a href="#isSenseInConcept">isSenseInConcept</a>.
 These relations are shown below.
@@ -259,7 +317,8 @@ These relations are shown below.
 
 </p>
 
-<p>The examples below show how categorization and lexicalization can be captured by employing the properties mentioned above: <a href="#isSenseInConcept">isSenseInConcept</a> from Lemon-tree and <strong>isLexicalizedSenseOf</strong> from Ontolex. 
+<p>
+The examples below show how categorization and lexicalization can be captured by employing the properties mentioned above: <a href="#isSenseInConcept">isSenseInConcept</a> from Lemon-tree and <strong>isLexicalizedSenseOf</strong> from Ontolex. 
 Notice that the property to express lexicalization is used in the example of the Historical Thesaurus of the Oxford English Dictionary. 
 There, the use of this property automatically indicates that the category is not only a SKOS <strong>Concept</strong>, but a concept that is expressed or lexicalized. 
 Such a concept is called a <strong>LexicalConcept</strong> according to Ontolex. <span class="todo" title="Look up language tag for Lowland Scots">[lang-tag]</span>
@@ -283,7 +342,8 @@ Such a concept is called a <strong>LexicalConcept</strong> according to Ontolex.
 
 <section>
 <h2 id="synonymy">Synonymy</h2>
-<p>Categories in a topical system group lexical senses into sets with a similar or related meaning. 
+<p>
+Categories in a topical system group lexical senses into sets with a similar or related meaning. 
 In some thesauri, though certainly not all, sets exist that indicate an even stronger semantic tie: one of synonymy. 
 A case in point is the Historical Thesaurus of the Oxford English Dictionary, in which senses placed at the same category are deemed loosely synonymous. 
 That is to say, grouped senses in this thesaurus have a similarity in meaning and are interchangeable in specific contexts. 
@@ -291,9 +351,13 @@ The introduction to the thesaurus Love, Sex, Marriage discusses synonymy found i
 <blockquote>
 Grouping terms together in a thesaurus, even in a thesaurus as detailed as this, does not imply absolute synonymy. Many scholars doubt whether absolute interchangeability is actually possible [...].
 </blockquote>
-Instead of absolute synonymy, then, it is common to find a looser form of synonymy in thesauri. (In fact, it has been called “the staple of thesauruses”.<span class="todo" title="Murphy, ‘Meaning Relations in Dictionaries’, p. 448.">[foot]</span>) This form is often referred to as near-synonymy.<span class="todo" title="M. L. Murphy, ‘Meaning Relations in Dictionaries: Hyponymy, Meronymy, Synonymy, Antonymy, and Contrast’, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 439–56 (pp. 447–8).">[foot]</span></p>
+Instead of absolute synonymy, then, it is common to find a looser form of synonymy in thesauri. 
+(In fact, it has been called “the staple of thesauruses”.<span class="todo" title="Murphy, ‘Meaning Relations in Dictionaries’, p. 448.">[foot]</span>) 
+This form is often referred to as near-synonymy.<span class="todo" title="M. L. Murphy, ‘Meaning Relations in Dictionaries: Hyponymy, Meronymy, Synonymy, Antonymy, and Contrast’, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 439–56 (pp. 447–8).">[foot]</span>
+</p>
 
-<p>In Lemon-tree, near-synonymy is evident for lexical senses that lexicalize the same concept. 
+<p>
+In Lemon-tree, near-synonymy is evident for lexical senses that lexicalize the same concept. 
 After all, such senses directly express the same meaning. 
 Thus, all the senses that lexicalize category "Freedom/liberty" of the Historical Thesaurus of the Oxford English Dictionary are known to be near-synonyms. 
 <pre class="example turtle nohighlight" title="Synonymy in lemon-tree">
@@ -314,23 +378,242 @@ It is possible to link synonyms together also via a direct relation between Lexi
 <section>
 <h2 id="levels-and-depth">Levels and depth</h2>
 <p>
-...
+In a topical system, much like in any tree data structure, it is possible to distinguish multiple levels. 
+Each level is found at a specific depth. 
+For thesauri, however, there tend to be two forms of levels. 
+Their topical system, after all, is meant to capture meaning and can therefore be subdivided into both levels of the tree structure and levels of meaning. 
+The former are known in Lemon-tree as tree levels; the latter as conceptual levels. 
+The next two sections will discuss each in more detail.
 </p>
 
 <section>
 <h2 id="tree-levels">Tree levels</h2>
 <p>
-...
+A topical system of a thesaurus consists of categories that have been placed in a hierarchy. 
+This hierarchical structure can be described using words for data structures known as trees. 
+Each category in the hierarchy is a <em>node</em> in the tree, the nodes at the very top of the tree are called <em>roots</em>, and relations between nodes are known as <em>edges</em>. 
 </p>
+
+<p>
+Each node is positioned at a certain <em>depth</em> of the tree. <em>Roots</em>, part of the first tree level, are at depth 0; nodes positioned directly below a root are at depth 1; nodes directly below these are at depth 2, and so on.
+The figure below displays such tree levels for the topical system of Roget's Thesaurus, perhaps the most well-known thesaurus in existence. 
+Categories displayed on the same dotted line are part of the same tree level. 
+</p>
+
+<figure>
+    <img src="img/thesaurus-treelevel-Rogets.svg" width="80%"/><figcaption>Tree levels (Roget's)</figcaption>
+</figure>
+
+<p>
+Lemon-tree offers terminology to express tree levels. 
+Each tree level is seen as a collection of categories, positioned at a specific tree depth. 
+Such a tree level can be captured using the class <a href="#TreeLevel">TreeLevel</a>. 
+The property <a href="#treeDepth">treeDepth</a> is used to state the depth of a level. 
+The property <a href="#treeLevels">treeLevels</a> is used to list all the tree levels available in the topical system of a thesaurus. 
+The definitions for this terminology is provided below, followed by examples of their use. 
+</p>
+
+<div id="TreeLevel" class="entity">
+<h3>TreeLevel (Class)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#TreeLevel" class="uri">https://w3id.org/lemon-tree#TreeLevel</a></p>
+</div>
+<div class='comment'>
+<p>A collection of concepts which are at the same depth of the tree (that is, distanced from the root node).</p>
+</div>
+<div class='description'>
+<p><strong>SubClassOf:</strong> skos:Collection</p>
+</div>
+</div>
+
+<div id="treeDepth" class="entity">
+<h3>treeDepth (Datatype Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#treeDepth" class="uri">https://w3id.org/lemon-tree#treeDepth</a></p>
+</div>
+<div class='comment'>
+<p>The smallest number of edges between the subject node (or tree level) and a root node of that same tree. A root node is therefore at tree depth 0; its child nodes at depth 1, etc.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> TreeLevel ∪ skos:Concept</p>
+<p><strong>Range:</strong> xsd:integer</p>
+</div>
+</div>
+
+<div id="treeLevels" class="entity">
+<h3>treeLevels (Object Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#treeLevels" class="uri">https://w3id.org/lemon-tree#treeLevels</a></p>
+</div>
+<div class='comment'>
+<p>Provides the list of tree levels for a concept scheme.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> skos:ConceptScheme</p>
+<p><strong>Range:</strong> rdf:List</p>
+</div>
+</div>
+
+<pre class="example turtle nohighlight" title="A tree level in lemon-tree (Roget's)">
+    &lt;treelevel2&gt; a tree:TreeLevel ;
+        tree:treeDepth 2 ;
+        skos:member &lt;volition-in-general&gt; ;
+        skos:member &lt;antagonism&gt; ;
+        skos:member &lt;possessive-relations&gt; .
+    
+    &lt;rogets&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Roget's Thesaurus"@en ;
+        tree:treeLevels ( &lt;treelevel0&gt; &lt;treelevel1&gt; &lt;treelevel2&gt; ) .
+</pre>
+
 </section>
 
 <section>
 <h2 id="conceptual-levels">Conceptual levels</h2>
 <p>
-...
+This section will introduce the notion of conceptual levels by means of an example: Roget's Thesaurus. 
+This thesaurus provides an outline of its topical system, which includes clear distinctions. 
+All categories in Roget's are not simply known as categories, but go by the name of <em>class</em>, <em>division</em>, or <em>section</em>. 
+Indeed, the topical system starts out with six of these <em>classes</em>, which may branch out into <em>divisions</em> which are more specific, and ultimately into <em>sections</em>. 
+A sample of its contents that includes these names is shown in the figure below.
 </p>
+
+<figure>
+    <img src="img/thesaurus-conceptuallevel-Rogets.svg" width="80%"/><figcaption>Conceptual levels (Roget's)</figcaption>
+</figure>
+
+<p>
+It is plain to see that the three types of category in Roget's act as a level of sorts. 
+<em>Classes</em> convey the highest level of abstraction; <em>sections</em> convey the lowest. 
+Intuitively, categories of a higher level of abstraction branch out only to categories of a lower level of abstraction. 
+As a consequence, we do not find <em>sections</em> in Roget's Thesaurus branching out into <em>classes</em> or <em>divisions</em>. 
+</p>
+
+<p>
+These levels mentioned do not necessarily map one-to-one with tree levels. 
+In the figure above, for example, both <em>divisions</em> and <em>sections</em> may be part of the 2nd tree level (at tree depth 1). 
+Other thesauri, too, use similar notions to distinguish such levels that we will henceforth call conceptual levels. <span class="todo" title="HTOED, TOE, LSM, ...">[foot]</span>
+In the Historical Thesaurus of the Oxford English Dictionary, the first conceptual level consists of <em>sections</em>, followed by <em>categories</em> and lastly <em>subcategories</em>. 
+Here, unlike in Roget's Thesaurus, a single category can branch out to categories from both the same conceptual level and one level beyond. 
+A case in point is "Freedom/liberty". This is one of the so-called <em>categories</em> and branches out to a number of other <em>categories</em> (including "Independence" and "Liberation") but also to <em>subcategories</em> (including "Civil liberty" and "Moral freedom").
+</p>
+
+<p>
+Lemon-tree offers terminology to express conceptuals levels, too. 
+Although these levels are different from tree levels, the patterns in which we capture both are quite similar. 
+This will be evident in the definitions below and the examples that follow them. 
+</p>
+
+<div id="ConceptualLevel" class="entity">
+<h3>ConceptualLevel (Class)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#ConceptualLevel" class="uri">https://w3id.org/lemon-tree#ConceptualLevel</a></p>
+</div>
+<div class='comment'>
+<p>A collection of concepts which are considered to be at the same conceptual depth (that is, semantically distanced from the root node). This conceptual depth may for certain thesauri coincide with the tree depth, but that is not necessarily the case for all thesauri.</p>
+</div>
+<div class='description'>
+<p><strong>SubClassOf:</strong> skos:Collection</p>
+</div>
+</div>
+
+<div id="conceptualDepth" class="entity">
+<h3>conceptualDepth (Datatype Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#conceptualDepth" class="uri">https://w3id.org/lemon-tree#conceptualDepth</a></p>
+</div>
+<div class='comment'>
+<p>The depth of the conceptual level that groups a number of concepts. The conceptual depth in thesaurus taxonomies can only increase in a branch, but never decrease.</p>
+<p>The first conceptual level in a thesaurus is at depth 0; the next one at depth 1, etc.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> ConceptualLevel ∪ skos:Concept )</p>
+<p><strong>Range:</strong> xsd:integer</p>
+</div>
+</div>
+
+<div id="conceptualLevels" class="entity">
+<h3>conceptualLevels (Object Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#conceptualLevels" class="uri">https://w3id.org/lemon-tree#conceptualLevels</a></p>
+</div>
+<div class='comment'>
+<p>Provides the list of conceptual levels for a concept scheme.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> skos:ConceptScheme</p>
+<p><strong>Range:</strong> rdf:List</p>
+</div>
+</div>
+
+<pre class="example turtle nohighlight" title="A conceptual level in lemon-tree (Roget's)">
+    &lt;sections&gt; a tree:ConceptualLevel ;
+        skos:prefLabel "Sections"@en ;
+        tree:conceptualDepth 2 ;
+        skos:member &lt;existence&gt; ;
+        skos:member &lt;quantity&gt; ;
+        skos:member &lt;volition-in-general&gt; ;
+        skos:member &lt;antagonism&gt; ;
+        skos:member &lt;possessive-relations&gt; .
+    
+    &lt;rogets&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Roget's Thesaurus"@en ;
+        tree:conceptualLevels ( &lt;classes&gt; &lt;divisions&gt; &lt;sections&gt; ) .
+</pre>
+
+<pre class="example turtle nohighlight" title="A conceptual level in lemon-tree (HTOED)">
+    &lt;categories&gt; a tree:ConceptualLevel ;
+        skos:prefLabel "Categories"@en ;
+        tree:conceptualDepth 1 ;
+        skos:member &lt;freedom-liberty&gt; ;
+        skos:member &lt;lack-of-subjection&gt; ;
+        skos:member &lt;permission&gt; ;
+        skos:member &lt;authority&gt; ;
+        skos:member &lt;communication&gt; ;
+        skos:member &lt;society&gt; ;
+        skos:member &lt;independence&gt; ;
+        skos:member &lt;liberation&gt; .
+    
+    &lt;htoed&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Historical Thesaurus of the Oxford English Dictionary"@en ;
+        tree:conceptualLevels ( &lt;sections&gt; &lt;categories&gt; &lt;subcategories&gt; ) .
+</pre>
+
 </section>
 </section>
+
+<h2 id="references">References</h2>
+<dl>
+
+<dt>[<dfn id="ref-LEMON">LEMON</dfn>]</dt>
+<dd><a rel="dct:references" href="https://www.w3.org/2016/05/ontolex/" class="reference-title">Lexicon Model for Ontologies</a>,
+    eds. P. Cimiano, J. P. McCrae, P. Buitelaar, W3C Community Report, 10 May 2016. URL: <a href="https://www.w3.org/2016/05/ontolex/">https://www.w3.org/2016/05/ontolex/</a>.</dd>
+
+<dt>[<dfn id="ref-RDF">RDF</dfn>]</dt>
+<dd><a rel="dct:references" href="https://www.w3.org/TR/rdf11-concepts/" class="reference-title">RDF 1.1: Concepts and Abstract Syntax</a>, 
+    eds. R. Cyganiak, D. Wood, M. Lanthaler, W3C Recommendation, 10 February 2004. URL: <a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>.</dd>
+
+<dt>[<dfn id="ref-RDF-PRIMER">RDF-PRIMER</dfn>]</dt>
+<dd><a rel="dct:references" href="http://www.w3.org/TR/rdf11-primer/" class="reference-title">RDF 1.1 Primer</a>, 
+    eds. G. Schreiber and Y. Raimond, W3C Working Group Note, 25 February 2014. URL: <a href="http://www.w3.org/TR/rdf11-primer/">http://www.w3.org/TR/rdf11-primer/</a>.</dd>
+
+<dt>[<dfn id="ref-SKOS">SKOS</dfn>]</dt>
+<dd><a rel="dct:references" href="https://www.w3.org/TR/skos-reference/" class="reference-title">SKOS Simple Knowledge Organization System Reference</a>,
+    eds. A. Miles and S. Bechhofer, W3C Recommendation, 18 August 2009. URL: <a href="https://www.w3.org/TR/skos-reference/">https://www.w3.org/TR/skos-reference/</a>.</dd>
+
+<dt>[<dfn id="ref-SKOS-PRIMER">SKOS-PRIMER</dfn>]</dt>
+<dd><a rel="dct:references" href="https://www.w3.org/TR/skos-primer/" class="reference-title">SKOS Simple Knowledge Organization System Primer</a>, 
+    eds. A. Isaac and E. Summers, W3C Working Group Note, 18 August 2009. URL: <a href="http://www.w3.org/TR/skos-primer/">https://www.w3.org/TR/skos-primer/</a>.</dd>
+
+<dt>[<dfn id="ref-Stolk-2017">Stolk-2017</dfn>]</dt>
+<dd>S. Stolk, <a rel="dct:references" href="http://ceur-ws.org/Vol-1899/OntoLex_2017_paper_3.pdf" class="reference-title">OntoLex and Onomasiological Ordering: Supporting Topical Thesauri</a>, 
+    Proceedings of the LDK2017 Workshops, NUI Galway, 18 June 2017, pp. 60–67. URL: <a href="http://ceur-ws.org/Vol-1899/OntoLex_2017_paper_3.pdf">http://ceur-ws.org/Vol-1899/OntoLex_2017_paper_3.pdf</a>.</dd>
+
+<dt>[<dfn id="ref-TURTLE">TURTLE</dfn>]</dt>
+<dd><a rel="dct:references" href="http://www.w3.org/TR/turtle/" class="reference-title">RDF 1.1 Turtle: Terse RDF Triple Language</a>, 
+    eds. E. Prud'hommeaux and G. Carothers, W3C Recommendation, 25 February 2014. URL: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a>.</dd>
+
+</dl>   
 
 </body>
 </html>
