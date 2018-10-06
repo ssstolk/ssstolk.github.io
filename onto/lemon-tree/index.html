@@ -50,7 +50,8 @@ Thesauri, by contrast, organize their items according to their meaning.
 They do this by means of a topical structure: a tree of concepts, if you will. 
 This overarching structure offers generic meanings to users as a starting point, which branch out to meanings increasingly specific. 
 Once users locate the meaning which they are interested in, they are presented with the words or phrases that express that meaning. 
-This overarching topical system in a thesaurus thus allows the user to move from meaning to lexical item.
+This overarching topical system in a thesaurus thus allows the user to move from meaning to lexical item. 
+For further detail on this type of lexicographical work, and the distinction with other common senses of the word thesaurus, we refer the reader to <a class="citation" rel="citation" href="#ref-Hartmann-2006">Hartmann-2006</a> and <a class="citation" rel="citation" href="#ref-Kay-2016">Kay-2016</a>.
 </p>
 
 <p>
@@ -252,8 +253,8 @@ This used to be the case for "freeship" and "franchise", too, in the history of 
 
 <p>
 Such lexicalization is not present in every thesaurus, however. 
-In fact, it is more often the case than not in thesauri that is is absent. 
-The sample below has been taken from the <a class="citation" rel="citation" href="#ref-ScT">Scots Thesaurus</a> and illustrates this lack of lexicalization rather well. 
+In fact, it is more often the case than not in thesauri that it is absent. 
+The sample below has been taken from the <a class="citation" rel="citation" href="#ref-ScT">Scots Thesaurus</a> and illustrates this lack of lexicalization. 
 <figure>
     <img src="img/thesaurus-sample-ScT.svg" width="70%"/><figcaption>Sample from the Scots Thesaurus</figcaption>
 </figure>
@@ -342,6 +343,30 @@ Such a concept is called a <strong>LexicalConcept</strong> according to LEMON On
     
     &lt;freedom-liberty&gt; a ontolex:LexicalConcept .
 </pre>
+</p>
+
+<p>
+It should be noted that, whenever definitions are available for senses, it is possible to make these definitions part of the topical system. 
+After all, the topical system allows a user to go from meaning to items that express that meaning. 
+A sense definition is just such a meaningful item. 
+The snippet below shows the result of this practice when applied to the Scots Thesaurus. 
+Here, an additional concept is added to the topical system. 
+This concept represents the sense definition of "happer" and is lexicalized by this sense. 
+<pre class="example turtle nohighlight" title="Categorization in lemon-tree">
+    &lt;sense-happer-basket&gt; a ontolex:LexicalSense ;
+        skos:prefLabel "happer"@sc ;
+        ontolex:isLexicalizedSenseOf &lt;a-basket-or-container&gt; .
+    
+    &lt;a-basket-or-container&gt; a ontolex:LexicalConcept ;
+        skos:prefLabel "a basket or container"@en 
+        skos:broader &lt;sowing&gt; .
+    
+    &lt;sowing&gt; a skos:Concept .
+</pre>
+Be aware that, when following this approach, one should ensure that multiple senses with the same definition lexicalize the same concept. 
+Existing thesauri may not contain information for this additional level of categorization. 
+(In fact, they often do not. Otherwise such thesauri could have already grouped their synonyms at concepts they lexicalize.) 
+If sense definitions are to be part of the topical system in such situations, then, it may require additional effort to add the knowledge required. 
 </p>
 </section>
 
@@ -651,11 +676,17 @@ This will be evident in the definitions below and the examples that follow them.
 <dt>[<dfn id="ref-Faria-2013">Faria-2013</dfn>]</dt>
 <dd>F. Faria, `Georges Cuvier et le premier paradigme de la paléontologie`, Revue de Paléobiologie 32:2 (2013), 297–302.</dd>
 
+<dt>[<dfn id="ref-Hartmann-2006">Hartmann-2006</dfn>]</dt>
+<dd>R. R. K. Hartmann, `Thesauruses`, in Encyclopedia of Language &amp; Linguistics, 2nd edn, ed. K. Brown, 14 vols (Oxford, 2006).</dd>
+
 <dt>[<dfn id="ref-Hüllen-1999">Hüllen-1999</dfn>]</dt>
 <dd>W. Hüllen, `English Dictionaries, 800-1700: The Topical Tradition` (Oxford, 1999).</dd>
 
 <dt>[<dfn id="ref-Jacob-2004">Jacob-2004</dfn>]</dt>
 <dd>E. K. Jacob, `Classification and Categorization: A Difference that Makes a Difference`, Library Trends 52:3 (2004), 515–40.</dd>
+
+<dt>[<dfn id="ref-Kay-2016">Kay-2016</dfn>]</dt>
+<dd>C. Kay and M. Alexander, `Diachronic and Synchronic Thesauruses`, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 367–80.</dd>
 
 <dt>[<dfn id="ref-Murphy-2016">Murphy-2016</dfn>]</dt>
 <dd>M. L. Murphy, `Meaning Relations in Dictionaries: Hyponymy, Meronymy, Synonymy, Antonymy, and Contrast`, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 439–56.</dd>
