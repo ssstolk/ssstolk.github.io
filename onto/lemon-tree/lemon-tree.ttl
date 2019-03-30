@@ -5,6 +5,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xkos: <http://rdf-vocabulary.ddialliance.org/xkos#> .
 @prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
@@ -24,7 +25,7 @@
     vann:preferredNamespaceUri "https://w3id.org/lemon-tree#" ;
     dcterms:rights "CC-Zero" ;
     cc:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
-    dcterms:creator <urn:ssstolk> ; ### TODO: me
+    dcterms:creator <https://www.universiteitleiden.nl/en/staffmembers/sander-stolk> ;
     rdfs:seeAlso <https://w3id.org/lemon-tree/> ;
     .
 
@@ -91,30 +92,38 @@ ontolex:evokes a owl:ObjectProperty ;
 ### Term: TreeLevel ###
 
 <#TreeLevel> a owl:Class ;
+    owl:deprecated "true"^^xsd:boolean ;
+    owl:equivalentClass xkos:ClassificationLevel ;
     rdfs:isDefinedBy <> ;
     rdfs:label "Tree level"@en ;
     rdfs:label "Niveau in boom"@nl ;
-    rdfs:label "Niveau im Baum"@de ; ### im Baum
+    rdfs:label "Niveau im Baum"@de ;
     rdfs:comment "A collection of concepts which are at the same depth of the tree (that is, distanced from the root node)."@en ;
+    rdfs:comment "This term is deprecated. Please use the term 'ClassificationLevel' from the XKOS vocabulary instead."@en ;
     rdfs:subClassOf skos:Collection ;
     .
 
 <#treeLevels> a owl:ObjectProperty ;
+    owl:deprecated "true"^^xsd:boolean ;
+    owl:equivalentProperty xkos:levels ;
     rdfs:isDefinedBy <> ;
     rdfs:label "has tree levels"@en ;
     rdfs:label "heeft niveaus in boom"@nl ;
     rdfs:label "hat Niveaus im Baum"@de ;
     rdfs:comment "Provides the list of tree levels for a concept scheme."@en ;
+    rdfs:comment "This term is deprecated. Please use the term 'levels' from the XKOS vocabulary instead."@en ;
     rdfs:domain skos:ConceptScheme ;
     rdfs:range rdf:List ;
     .
 
 <#treeDepth> a owl:DatatypeProperty ;
+    owl:deprecated "true"^^xsd:boolean ;    
     rdfs:isDefinedBy <> ;
     rdfs:label "has tree depth"@en ;
     rdfs:label "heeft diepte in boom"@nl ;
     rdfs:label "hat Tiefe im Baum"@de ;
     rdfs:comment "The smallest number of edges between the subject node (or tree level) and a root node of that same tree. A root node is therefore at tree depth 0; its child nodes at depth 1, etc."@en ;
+    rdfs:comment "This term is deprecated. Please use the term 'depth' from the XKOS vocabulary instead. Please be aware that XKOS measures the depth slightly different from lemon-tree (i.e., roots are considered to be at depth 1 rather than 0)."@en ;
     rdfs:domain [ a owl:Class ;
                   owl:unionOf ( skos:Concept <#TreeLevel> ) ] ;
     rdfs:range xsd:integer ;

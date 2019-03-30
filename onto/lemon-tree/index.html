@@ -28,6 +28,8 @@
 .entity { border:1px solid #000080; width:80%; margin-left:auto; margin-right:auto; max-width:80%; margin-left:auto; margin-right:auto; margin-bottom:30px; margin-top:30px; padding: 10px; }
 .entity h3 { margin-top:3px;padding-bottom:5px;border-bottom:1px solid #000080; }
 .description { border-top:1px dashed #808080; border-bottom:1px dashed #808080; margin-top:5px; padding-bottom:5px; }
+.deprecated  { border-bottom:1px solid #808080; margin-top:5px; padding-bottom:0px; }
+.deprecated p { background-color: #ffd4d4; margin-top:-15px; margin-bottom:0px; }
 </style>
 </head>
 <body>
@@ -104,6 +106,7 @@ The following namespaces are used in these examples:
 <pre><code class="cm">@prefix tree: &lt;https://w3id.org/lemon-tree#&gt; .
 @prefix ontolex: &lt;http://www.w3.org/ns/lemon/ontolex#&gt; .
 @prefix skos: &lt;http://www.w3.org/2004/02/skos#&gt; .
+@prefix xkos: &lt;http://rdf-vocabulary.ddialliance.org/xkos#&gt; .
 @prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
 @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
@@ -166,6 +169,9 @@ Others position their topical structure as consisting of categories rather than 
 For topical systems used to organize lexis, this document prefers the terms category and categorization over class and classification.
 For further information on the distinction between the two, see <a class="citation" rel="citation" href="#ref-Jacob-2004">Jacob-2004</a>. 
 </p>
+
+<section>
+<h2 id="categories">Categories</h2>
 <p>
 Lemon-tree captures the topical system using terminology from <a class="citation" rel="citation" href="#ref-SKOS">SKOS</a>. 
 This standard from W3C was designed specifically for knowledge organization systems, including topical systems. 
@@ -189,16 +195,242 @@ This topic will be treated in the section <a href="#categorization-and-lexicaliz
 </section>
 
 <section>
+<h2 id="levels-and-depth">Levels and depth</h2>
+<p>
+In a topical system, much like in any tree data structure, it is possible to distinguish multiple levels. 
+Each level is found at a specific depth. 
+For thesauri, however, there tend to be two forms of levels. 
+Their topical system, after all, is meant to capture meaning and can therefore be subdivided into both levels of the tree structure and levels of meaning. 
+The former are known in Lemon-tree as tree levels; the latter as conceptual levels. 
+The next two sections will discuss each in more detail.
+</p>
+</section>
+
+<section>
+<h2 id="tree-levels">Tree levels</h2>
+<p>
+A topical system of a thesaurus consists of categories that have been placed in a hierarchy. 
+This hierarchical structure can be described using words for data structures known as trees. 
+Each category in the hierarchy is a <em>node</em> in the tree, the nodes at the very top of the tree are called <em>roots</em>, and relations between nodes are known as <em>edges</em>. 
+</p>
+
+<p>
+Each node is positioned at a certain <em>depth</em> of the tree. <em>Roots</em>, part of the first tree level, are at depth 0; nodes positioned directly below a root are at depth 1; nodes directly below these are at depth 2, and so on.
+The figure below displays such tree levels for the topical system of <a class="citation" rel="citation" href="#ref-Roget">Roget's Thesaurus</a>, perhaps the most well-known thesaurus in existence. 
+Categories displayed on the same dotted line are part of the same tree level. 
+</p>
+
+<figure>
+    <img src="img/thesaurus-treelevel-Rogets.svg" width="80%"/><figcaption>Tree levels (Roget's)</figcaption>
+</figure>
+
+<p>
+Tree levels can, of course, be calculated from the position of each node in the tree structure. 
+Even so, some communities find it worthwhile to capture this information explicitly, too. 
+Indeed, terminology to represent tree levels can already be found in <a class="citation" rel="citation" href="#ref-XKOS">XKOS</a>, a vocabulary that extends SKOS. 
+In XKOS, each tree level is seen as a collection of categories, positioned at a specific tree depth. 
+Lemon-tree therefore proposes to reuse this terminology in cases where capturing tree levels of a specific thesaurus is desired. 
+(The terms TreeLevel, treeDepth, and treeLevels that were coined in an earlier version of Lemon-tree are as a consequence deprecated.) 
+</p>
+
+<div id="TreeLevel" class="entity">
+<h3><del>TreeLevel (Class)</del></h3></em>
+<div class="deprecated">
+<p><strong>Deprecated.</strong> Please use the term <a href="http://rdf-vocabulary.ddialliance.org/xkos#ClassificationLevel" class="uri">ClassificationLevel</a> from the XKOS vocabulary instead.</p>
+</div>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#TreeLevel" class="uri">https://w3id.org/lemon-tree#TreeLevel</a></p>
+</div>
+<div class='comment'>
+<p>A collection of concepts which are at the same depth of the tree (that is, distanced from the root node).</p>
+</div>
+<div class='description'>
+<p><strong>SubClassOf:</strong> skos:Collection</p>
+<p><strong>EquivalentClass:</strong> xkos:ClassificationLevel</p>
+</div>
+</div>
+
+<div id="treeDepth" class="entity">
+<h3><del>treeDepth (Datatype Property)</del></h3>
+<div class="deprecated">
+<p><strong>Deprecated.</strong> Please use the term <a href="http://rdf-vocabulary.ddialliance.org/xkos#depth" class="uri">depth</a> from the XKOS vocabulary instead. Please be aware that XKOS measures the depth slightly different from lemon-tree (i.e., roots are considered to be at depth 1 rather than 0).</p>
+</div>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#treeDepth" class="uri">https://w3id.org/lemon-tree#treeDepth</a></p>
+</div>
+<div class='comment'>
+<p>The smallest number of edges between the subject node (or tree level) and a root node of that same tree. A root node is therefore at tree depth 0; its child nodes at depth 1, etc.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> TreeLevel ∪ skos:Concept</p>
+<p><strong>Range:</strong> xsd:integer</p>
+</div>
+</div>
+
+<div id="treeLevels" class="entity">
+<h3><del>treeLevels (Object Property)</del></h3>
+<div class="deprecated">
+<p><strong>Deprecated.</strong> Please use the term <a href="http://rdf-vocabulary.ddialliance.org/xkos#levels" class="uri">levels</a> from the XKOS vocabulary instead.</p>
+</div>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#treeLevels" class="uri">https://w3id.org/lemon-tree#treeLevels</a></p>
+</div>
+<div class='comment'>
+<p>Provides the list of tree levels for a concept scheme.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> skos:ConceptScheme</p>
+<p><strong>Range:</strong> rdf:List</p>
+<p><strong>EquivalentProperty:</strong> xkos:levels</p>
+</div>
+</div>
+
+An example of the use of XKOS terminology to capture a tree level is shown in the snippet below. 
+Please note that XKOS calculates the depth of nodes slightly different from the method in Lemon-tree, placing root nodes at depth 1 rather than 0. 
+
+<pre class="example turtle nohighlight" title="A tree level in lemon-tree (Roget's)">
+    &lt;treelevel2&gt; a xkos:ClassificationLevel ;
+        xkos:depth 3 ;
+        skos:member &lt;volition-in-general&gt; ;
+        skos:member &lt;antagonism&gt; ;
+        skos:member &lt;possessive-relations&gt; .
+    
+    &lt;rogets&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Roget's Thesaurus"@en ;
+        xkos:levels ( &lt;treelevel0&gt; &lt;treelevel1&gt; &lt;treelevel2&gt; ) .
+</pre>
+
+</section>
+
+<section>
+<h2 id="conceptual-levels">Conceptual levels</h2>
+<p>
+This section will introduce the notion of conceptual levels by means of an example: <a class="citation" rel="citation" href="#ref-Roget">Roget's Thesaurus</a>. 
+This thesaurus provides an outline of its topical system, which includes clear distinctions. 
+All categories in Roget's are not simply known as categories, but go by the name of <em>class</em>, <em>division</em>, or <em>section</em>. 
+Indeed, the topical system starts out with six of these <em>classes</em>, which may branch out into <em>divisions</em> which are more specific, and ultimately into <em>sections</em>. 
+A sample of its contents that includes these names is shown in the figure below.
+</p>
+
+<figure>
+    <img src="img/thesaurus-conceptuallevel-Rogets.svg" width="80%"/><figcaption>Conceptual levels (Roget's)</figcaption>
+</figure>
+
+<p>
+It is plain to see that the three types of category in Roget's act as a level of sorts. 
+<em>Classes</em> convey the highest level of abstraction; <em>sections</em> convey the lowest. 
+Intuitively, categories of a higher level of abstraction branch out only to categories of a lower level of abstraction. 
+As a consequence, we do not find <em>sections</em> in Roget's Thesaurus branching out into <em>classes</em> or <em>divisions</em>. 
+</p>
+
+<p>
+These levels mentioned do not necessarily map one-to-one with tree levels. 
+In the figure above, for example, both <em>divisions</em> and <em>sections</em> may be part of the 2nd tree level (at tree depth 1). 
+Other thesauri, too, use similar notions to distinguish such levels that we will henceforth call conceptual levels [<a class="citation" rel="citation" href="#ref-HTOED">HTOED</a>, <a class="citation" rel="citation" href="#ref-LSM">LSM</a>]. 
+In the <a class="citation" rel="citation" href="#ref-HTOED">Historical Thesaurus of the Oxford English Dictionary</a>, the first conceptual level consists of <em>sections</em>, followed by <em>categories</em> and lastly <em>subcategories</em>. 
+Here, unlike in Roget's Thesaurus, a single category can branch out to categories from both the same conceptual level and one level beyond. 
+A case in point is "Freedom/liberty". This is one of the so-called <em>categories</em> and branches out to a number of other <em>categories</em> (including "Independence" and "Liberation") but also to <em>subcategories</em> (including "Civil liberty" and "Moral freedom").
+</p>
+
+<p>
+Lemon-tree offers terminology to express conceptuals levels, too. 
+Although these levels are different from tree levels, the patterns in which we capture both are quite similar. 
+This will be evident in the definitions below and the examples that follow them. 
+</p>
+
+<div id="ConceptualLevel" class="entity">
+<h3>ConceptualLevel (Class)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#ConceptualLevel" class="uri">https://w3id.org/lemon-tree#ConceptualLevel</a></p>
+</div>
+<div class='comment'>
+<p>A collection of concepts which are considered to be at the same conceptual depth (that is, semantically distanced from the root node). This conceptual depth may for certain thesauri coincide with the tree depth, but that is not necessarily the case for all thesauri.</p>
+</div>
+<div class='description'>
+<p><strong>SubClassOf:</strong> skos:Collection</p>
+</div>
+</div>
+
+<div id="conceptualDepth" class="entity">
+<h3>conceptualDepth (Datatype Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#conceptualDepth" class="uri">https://w3id.org/lemon-tree#conceptualDepth</a></p>
+</div>
+<div class='comment'>
+<p>The depth of the conceptual level that groups a number of concepts. The conceptual depth in thesaurus taxonomies can only increase in a branch, but never decrease.</p>
+<p>The first conceptual level in a thesaurus is at depth 0; the next one at depth 1, etc.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> ConceptualLevel ∪ skos:Concept</p>
+<p><strong>Range:</strong> xsd:integer</p>
+</div>
+</div>
+
+<div id="conceptualLevels" class="entity">
+<h3>conceptualLevels (Object Property)</h3>
+<div>
+<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#conceptualLevels" class="uri">https://w3id.org/lemon-tree#conceptualLevels</a></p>
+</div>
+<div class='comment'>
+<p>Provides the list of conceptual levels for a concept scheme.</p>
+</div>
+<div class='description'>
+<p><strong>Domain:</strong> skos:ConceptScheme</p>
+<p><strong>Range:</strong> rdf:List</p>
+</div>
+</div>
+
+<pre class="example turtle nohighlight" title="A conceptual level in lemon-tree (Roget's)">
+    &lt;sections&gt; a tree:ConceptualLevel ;
+        skos:prefLabel "Sections"@en ;
+        tree:conceptualDepth 2 ;
+        skos:member &lt;existence&gt; ;
+        skos:member &lt;quantity&gt; ;
+        skos:member &lt;volition-in-general&gt; ;
+        skos:member &lt;antagonism&gt; ;
+        skos:member &lt;possessive-relations&gt; .
+    
+    &lt;rogets&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Roget's Thesaurus"@en ;
+        tree:conceptualLevels ( &lt;classes&gt; &lt;divisions&gt; &lt;sections&gt; ) .
+</pre>
+
+<pre class="example turtle nohighlight" title="A conceptual level in lemon-tree (HTOED)">
+    &lt;categories&gt; a tree:ConceptualLevel ;
+        skos:prefLabel "Categories"@en ;
+        tree:conceptualDepth 1 ;
+        skos:member &lt;freedom-liberty&gt; ;
+        skos:member &lt;lack-of-subjection&gt; ;
+        skos:member &lt;permission&gt; ;
+        skos:member &lt;authority&gt; ;
+        skos:member &lt;communication&gt; ;
+        skos:member &lt;society&gt; ;
+        skos:member &lt;independence&gt; ;
+        skos:member &lt;liberation&gt; .
+    
+    &lt;htoed&gt; a skos:ConceptScheme ;
+        skos:prefLabel "Historical Thesaurus of the Oxford English Dictionary"@en ;
+        tree:conceptualLevels ( &lt;sections&gt; &lt;categories&gt; &lt;subcategories&gt; ) .
+</pre>
+
+</section>
+</section>
+
+<section>
 <h2 id="words-and-senses">Words and senses</h2>
 <p>
 A thesaurus contains lexical items that have been categorized, allowing users to go from meaning to words or phrases that express that meaning. 
 Lemon-tree captures such words and senses using <a class="citation" rel="citation" href="#ref-LEMON">LEMON Ontolex</a> terminology. 
-A word or phrase is captured as an Ontolex LexicalEntry and each of their senses is captured as a LexicalSense. 
+A word or phrase is captured as an Ontolex LexicalEntry and each of its senses is captured as a LexicalSense. 
 An example is presented below.
 
 <pre class="example turtle nohighlight" title="A lexical entry in lemon-tree">
     &lt;entry-freedom&gt; a ontolex:LexicalEntry ;
-        skos:prefLabel "freedom"@en .
+        skos:prefLabel "freedom"@en ;
+        ontolex:canonicalForm [ 
+            a ontolex:Form ;
+            ontolex:writtenRep "freedom"@en ;
+        ] .
 </pre>
 
 <pre class="example turtle nohighlight" title="A lexical sense in lemon-tree">
@@ -220,7 +452,7 @@ After all, a number of these resources simply present head-forms of a word (or p
 In the <a class="citation" rel="citation" href="#ref-ShT">Shakespeare Thesaurus</a>, for instance, category “01.02 sky” contains the following item:
 <blockquote><strong>heaven, n.</strong></blockquote>
 The head-form “heaven” in this example is similar in appearance to a headword, or lemma, found in typical dictionaries. 
-This gives off the appearance that lexical items are categorized by thesauri. The following fictitious dictionary entry, however, demonstrates otherwise.
+This gives off the appearance that thesauri categorize lexical items. The following fictitious dictionary entry, however, demonstrates otherwise.
 <blockquote><strong>heaven, n.</strong> 1) abode of one or more gods 2) the sky</blockquote>
 It is evident that the “heaven, n.” entry in the Shakespeare Thesaurus, found in the category “01.02 sky”, represents the lexical item heaven in not all of its senses listed above but in only the second sense. 
 Werner Hüllen, who has thoroughly researched the topical tradition of thesauri, acknowledges that the entries in thesauri indeed represent senses rather than lexical items: <a class="citation" rel="citation" href="#ref-Hüllen-1999">[Hüllen-1999]</a> 
@@ -256,7 +488,7 @@ Such lexicalization is not present in every thesaurus, however.
 In fact, it is more often the case than not in thesauri that it is absent. 
 The sample below has been taken from the <a class="citation" rel="citation" href="#ref-ScT">Scots Thesaurus</a> and illustrates this lack of lexicalization. 
 <figure>
-    <img src="img/thesaurus-sample-ScT.svg" width="70%"/><figcaption>Sample from the Scots Thesaurus</figcaption>
+    <img src="img/thesaurus-sample-ScT.svg" width="70%"/><figcaption>Sample from The Scots Thesaurus</figcaption>
 </figure>
 Here, the sense `to disperse scantily` of "blander" can hardly be said to directly express "Sowing". 
 This is likewise the case for the sense `a basket or container` of "happer". 
@@ -349,7 +581,7 @@ Such a concept is called a <strong>LexicalConcept</strong> according to LEMON On
 It should be noted that, whenever definitions are available for senses, it is possible to make these definitions part of the topical system. 
 After all, the topical system allows a user to go from meaning to items that express that meaning. 
 A sense definition is just such a meaningful item. 
-The snippet below shows the result of this practice when applied to the Scots Thesaurus. 
+The snippet below shows the result of this practice when applied to The Scots Thesaurus. 
 Here, an additional concept is added to the topical system. 
 This concept represents the sense definition of "happer" and is lexicalized by this sense. 
 <pre class="example turtle nohighlight" title="Categorization in lemon-tree">
@@ -406,295 +638,99 @@ For information and advice on both these aspects, we refer the reader to the <a 
 </section>
 </section>
 
-<section>
-<h2 id="levels-and-depth">Levels and depth</h2>
-<p>
-In a topical system, much like in any tree data structure, it is possible to distinguish multiple levels. 
-Each level is found at a specific depth. 
-For thesauri, however, there tend to be two forms of levels. 
-Their topical system, after all, is meant to capture meaning and can therefore be subdivided into both levels of the tree structure and levels of meaning. 
-The former are known in Lemon-tree as tree levels; the latter as conceptual levels. 
-The next two sections will discuss each in more detail.
-</p>
-
-<section>
-<h2 id="tree-levels">Tree levels</h2>
-<p>
-A topical system of a thesaurus consists of categories that have been placed in a hierarchy. 
-This hierarchical structure can be described using words for data structures known as trees. 
-Each category in the hierarchy is a <em>node</em> in the tree, the nodes at the very top of the tree are called <em>roots</em>, and relations between nodes are known as <em>edges</em>. 
-</p>
-
-<p>
-Each node is positioned at a certain <em>depth</em> of the tree. <em>Roots</em>, part of the first tree level, are at depth 0; nodes positioned directly below a root are at depth 1; nodes directly below these are at depth 2, and so on.
-The figure below displays such tree levels for the topical system of <a class="citation" rel="citation" href="#ref-Roget">Roget's Thesaurus</a>, perhaps the most well-known thesaurus in existence. 
-Categories displayed on the same dotted line are part of the same tree level. 
-</p>
-
-<figure>
-    <img src="img/thesaurus-treelevel-Rogets.svg" width="80%"/><figcaption>Tree levels (Roget's)</figcaption>
-</figure>
-
-<p>
-Lemon-tree offers terminology to express tree levels. 
-Each tree level is seen as a collection of categories, positioned at a specific tree depth. 
-Such a tree level can be captured using the class <a href="#TreeLevel">TreeLevel</a>. 
-The property <a href="#treeDepth">treeDepth</a> is used to state the depth of a level. 
-The property <a href="#treeLevels">treeLevels</a> is used to list all the tree levels available in the topical system of a thesaurus. 
-The definitions for this terminology is provided below, followed by examples of their use. 
-</p>
-
-<div id="TreeLevel" class="entity">
-<h3>TreeLevel (Class)</h3>
-<div>
-<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#TreeLevel" class="uri">https://w3id.org/lemon-tree#TreeLevel</a></p>
-</div>
-<div class='comment'>
-<p>A collection of concepts which are at the same depth of the tree (that is, distanced from the root node).</p>
-</div>
-<div class='description'>
-<p><strong>SubClassOf:</strong> skos:Collection</p>
-</div>
-</div>
-
-<div id="treeDepth" class="entity">
-<h3>treeDepth (Datatype Property)</h3>
-<div>
-<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#treeDepth" class="uri">https://w3id.org/lemon-tree#treeDepth</a></p>
-</div>
-<div class='comment'>
-<p>The smallest number of edges between the subject node (or tree level) and a root node of that same tree. A root node is therefore at tree depth 0; its child nodes at depth 1, etc.</p>
-</div>
-<div class='description'>
-<p><strong>Domain:</strong> TreeLevel ∪ skos:Concept</p>
-<p><strong>Range:</strong> xsd:integer</p>
-</div>
-</div>
-
-<div id="treeLevels" class="entity">
-<h3>treeLevels (Object Property)</h3>
-<div>
-<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#treeLevels" class="uri">https://w3id.org/lemon-tree#treeLevels</a></p>
-</div>
-<div class='comment'>
-<p>Provides the list of tree levels for a concept scheme.</p>
-</div>
-<div class='description'>
-<p><strong>Domain:</strong> skos:ConceptScheme</p>
-<p><strong>Range:</strong> rdf:List</p>
-</div>
-</div>
-
-<pre class="example turtle nohighlight" title="A tree level in lemon-tree (Roget's)">
-    &lt;treelevel2&gt; a tree:TreeLevel ;
-        tree:treeDepth 2 ;
-        skos:member &lt;volition-in-general&gt; ;
-        skos:member &lt;antagonism&gt; ;
-        skos:member &lt;possessive-relations&gt; .
-    
-    &lt;rogets&gt; a skos:ConceptScheme ;
-        skos:prefLabel "Roget's Thesaurus"@en ;
-        tree:treeLevels ( &lt;treelevel0&gt; &lt;treelevel1&gt; &lt;treelevel2&gt; ) .
-</pre>
-
+<section class="appendix">
+<h2 id="acknowledgements">Acknowledgements</h2>
+A special word of thanks to Philipp Cimiano and John McCrae, editors of <a class="citation" rel="citation" href="#ref-LEMON">LEMON</a>, for their valuable feedback in shaping Lemon-tree.
 </section>
 
-<section>
-<h2 id="conceptual-levels">Conceptual levels</h2>
-<p>
-This section will introduce the notion of conceptual levels by means of an example: <a class="citation" rel="citation" href="#ref-Roget">Roget's Thesaurus</a>. 
-This thesaurus provides an outline of its topical system, which includes clear distinctions. 
-All categories in Roget's are not simply known as categories, but go by the name of <em>class</em>, <em>division</em>, or <em>section</em>. 
-Indeed, the topical system starts out with six of these <em>classes</em>, which may branch out into <em>divisions</em> which are more specific, and ultimately into <em>sections</em>. 
-A sample of its contents that includes these names is shown in the figure below.
-</p>
-
-<figure>
-    <img src="img/thesaurus-conceptuallevel-Rogets.svg" width="80%"/><figcaption>Conceptual levels (Roget's)</figcaption>
-</figure>
-
-<p>
-It is plain to see that the three types of category in Roget's act as a level of sorts. 
-<em>Classes</em> convey the highest level of abstraction; <em>sections</em> convey the lowest. 
-Intuitively, categories of a higher level of abstraction branch out only to categories of a lower level of abstraction. 
-As a consequence, we do not find <em>sections</em> in Roget's Thesaurus branching out into <em>classes</em> or <em>divisions</em>. 
-</p>
-
-<p>
-These levels mentioned do not necessarily map one-to-one with tree levels. 
-In the figure above, for example, both <em>divisions</em> and <em>sections</em> may be part of the 2nd tree level (at tree depth 1). 
-Other thesauri, too, use similar notions to distinguish such levels that we will henceforth call conceptual levels [<a class="citation" rel="citation" href="#ref-HTOED">HTOED</a>, <a class="citation" rel="citation" href="#ref-LSM">LSM</a>]. 
-In the <a class="citation" rel="citation" href="#ref-HTOED">Historical Thesaurus of the Oxford English Dictionary</a>, the first conceptual level consists of <em>sections</em>, followed by <em>categories</em> and lastly <em>subcategories</em>. 
-Here, unlike in Roget's Thesaurus, a single category can branch out to categories from both the same conceptual level and one level beyond. 
-A case in point is "Freedom/liberty". This is one of the so-called <em>categories</em> and branches out to a number of other <em>categories</em> (including "Independence" and "Liberation") but also to <em>subcategories</em> (including "Civil liberty" and "Moral freedom").
-</p>
-
-<p>
-Lemon-tree offers terminology to express conceptuals levels, too. 
-Although these levels are different from tree levels, the patterns in which we capture both are quite similar. 
-This will be evident in the definitions below and the examples that follow them. 
-</p>
-
-<div id="ConceptualLevel" class="entity">
-<h3>ConceptualLevel (Class)</h3>
-<div>
-<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#ConceptualLevel" class="uri">https://w3id.org/lemon-tree#ConceptualLevel</a></p>
-</div>
-<div class='comment'>
-<p>A collection of concepts which are considered to be at the same conceptual depth (that is, semantically distanced from the root node). This conceptual depth may for certain thesauri coincide with the tree depth, but that is not necessarily the case for all thesauri.</p>
-</div>
-<div class='description'>
-<p><strong>SubClassOf:</strong> skos:Collection</p>
-</div>
-</div>
-
-<div id="conceptualDepth" class="entity">
-<h3>conceptualDepth (Datatype Property)</h3>
-<div>
-<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#conceptualDepth" class="uri">https://w3id.org/lemon-tree#conceptualDepth</a></p>
-</div>
-<div class='comment'>
-<p>The depth of the conceptual level that groups a number of concepts. The conceptual depth in thesaurus taxonomies can only increase in a branch, but never decrease.</p>
-<p>The first conceptual level in a thesaurus is at depth 0; the next one at depth 1, etc.</p>
-</div>
-<div class='description'>
-<p><strong>Domain:</strong> ConceptualLevel ∪ skos:Concept )</p>
-<p><strong>Range:</strong> xsd:integer</p>
-</div>
-</div>
-
-<div id="conceptualLevels" class="entity">
-<h3>conceptualLevels (Object Property)</h3>
-<div>
-<p><strong>URI:</strong> <a href="https://w3id.org/lemon-tree#conceptualLevels" class="uri">https://w3id.org/lemon-tree#conceptualLevels</a></p>
-</div>
-<div class='comment'>
-<p>Provides the list of conceptual levels for a concept scheme.</p>
-</div>
-<div class='description'>
-<p><strong>Domain:</strong> skos:ConceptScheme</p>
-<p><strong>Range:</strong> rdf:List</p>
-</div>
-</div>
-
-<pre class="example turtle nohighlight" title="A conceptual level in lemon-tree (Roget's)">
-    &lt;sections&gt; a tree:ConceptualLevel ;
-        skos:prefLabel "Sections"@en ;
-        tree:conceptualDepth 2 ;
-        skos:member &lt;existence&gt; ;
-        skos:member &lt;quantity&gt; ;
-        skos:member &lt;volition-in-general&gt; ;
-        skos:member &lt;antagonism&gt; ;
-        skos:member &lt;possessive-relations&gt; .
-    
-    &lt;rogets&gt; a skos:ConceptScheme ;
-        skos:prefLabel "Roget's Thesaurus"@en ;
-        tree:conceptualLevels ( &lt;classes&gt; &lt;divisions&gt; &lt;sections&gt; ) .
-</pre>
-
-<pre class="example turtle nohighlight" title="A conceptual level in lemon-tree (HTOED)">
-    &lt;categories&gt; a tree:ConceptualLevel ;
-        skos:prefLabel "Categories"@en ;
-        tree:conceptualDepth 1 ;
-        skos:member &lt;freedom-liberty&gt; ;
-        skos:member &lt;lack-of-subjection&gt; ;
-        skos:member &lt;permission&gt; ;
-        skos:member &lt;authority&gt; ;
-        skos:member &lt;communication&gt; ;
-        skos:member &lt;society&gt; ;
-        skos:member &lt;independence&gt; ;
-        skos:member &lt;liberation&gt; .
-    
-    &lt;htoed&gt; a skos:ConceptScheme ;
-        skos:prefLabel "Historical Thesaurus of the Oxford English Dictionary"@en ;
-        tree:conceptualLevels ( &lt;sections&gt; &lt;categories&gt; &lt;subcategories&gt; ) .
-</pre>
-
-</section>
-</section>
-
+<section class="appendix">
 <h2 id="references">References</h2>
 
 <section>
-<h2 id="references-thesauri">Thesauri and dictionaries</h2>
+<h3 id="references-thesauri">Thesauri and dictionaries</h3>
 <dl>
-<dt>[<dfn id="ref-HTOED">HTOED</dfn>]</dt>
+<dt id="ref-HTOED">[HTOED]</dt>
 <dd>`Historical Thesaurus of the Oxford English Dictionary`, 2 vols., eds. C. Kay et al. (Oxford, 2009).</dd>
 
-<dt>[<dfn id="ref-HTOED-Online">HTOED-Online</dfn>]</dt>
+<dt id="ref-HTOED-Online">[HTOED-Online]</dt>
 <dd><a rel="dct:references" href="http://oed.com/thesaurus" class="reference-title">Historical Thesaurus of the Oxford English Dictionary</a>, 
     eds. C. Kay et al. (2010). URL: <a href="http://oed.com/thesaurus">http://oed.com/thesaurus</a> .</dd>
 
-<dt>[<dfn id="ref-LSM">LSM</dfn>]</dt>
+<dt id="ref-LSM">[LSM]</dt>
 <dd>J. Coleman, `Love, Sex, and Marriage: A Historical Thesaurus`, Costerus New Series 118 (Amsterdam, 1999). ISBN 9042004339.</dd>
 
-<dt>[<dfn id="ref-OED">OED</dfn>]</dt>
+<dt id="ref-OED">[OED]</dt>
 <dd><a rel="dct:references" href="http://oed.com" class="reference-title">Oxford English Dictionary Online</a>. URL: <a href="http://oed.com">http://oed.com</a></dd>
 
-<dt>[<dfn id="ref-Roget">Roget</dfn>]</dt>
+<dt id="ref-Roget">[Roget]</dt>
 <dd>P. M. Roget, `Thesaurus of English Words and Phrases, Classified and Arranged so as to Facilitate the Expression of Ideas and Assist in Literary Composition` (London, 1852).</dd>
 
-<dt>[<dfn id="ref-ScT">ScT</dfn>]</dt>
+<dt id="ref-ScT">[ScT]</dt>
 <dd>`The Scots Thesaurus`, eds. I. Macleod et al. (Aberdeen, 1990). ISBN 0550118527.</dd>
 
-<dt>[<dfn id="ref-ShT">ShT</dfn>]</dt>
+<dt id="ref-ShT">[ShT]</dt>
 <dd>M. Spevack, `A Shakespeare Thesaurus` (Hildesheim, 1993). ISBN 3487097753.</dd>
 </section>
 
 <section>
-<h2 id="references-rdf">RDF Documents and Vocabularies</h2>
+<h3 id="references-rdf">RDF Documents and Vocabularies</h3>
 <dl>
-<dt>[<dfn id="ref-LEMON">LEMON</dfn>]</dt>
+<dt id="ref-LEMON">[LEMON]</dt>
 <dd><a rel="dct:references" href="https://www.w3.org/2016/05/ontolex/" class="reference-title">Lexicon Model for Ontologies</a>,
     eds. P. Cimiano, J. P. McCrae, P. Buitelaar, W3C Community Report, 10 May 2016. URL: <a href="https://www.w3.org/2016/05/ontolex/">https://www.w3.org/2016/05/ontolex/</a> .</dd>
 
-<dt>[<dfn id="ref-RDF">RDF</dfn>]</dt>
+<dt id="ref-RDF">[RDF]</dt>
 <dd><a rel="dct:references" href="https://www.w3.org/TR/rdf11-concepts/" class="reference-title">RDF 1.1: Concepts and Abstract Syntax</a>, 
     eds. R. Cyganiak, D. Wood, M. Lanthaler, W3C Recommendation, 10 February 2004. URL: <a href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a> .</dd>
 
-<dt>[<dfn id="ref-RDF-PRIMER">RDF-PRIMER</dfn>]</dt>
+<dt id="ref-RDF-PRIMER">[RDF-PRIMER]</dt>
 <dd><a rel="dct:references" href="http://www.w3.org/TR/rdf11-primer/" class="reference-title">RDF 1.1 Primer</a>, 
     eds. G. Schreiber and Y. Raimond, W3C Working Group Note, 25 February 2014. URL: <a href="http://www.w3.org/TR/rdf11-primer/">http://www.w3.org/TR/rdf11-primer/</a> .</dd>
 
-<dt>[<dfn id="ref-SKOS">SKOS</dfn>]</dt>
+<dt id="ref-SKOS">[SKOS]</dt>
 <dd><a rel="dct:references" href="https://www.w3.org/TR/skos-reference/" class="reference-title">SKOS Simple Knowledge Organization System Reference</a>,
     eds. A. Miles and S. Bechhofer, W3C Recommendation, 18 August 2009. URL: <a href="https://www.w3.org/TR/skos-reference/">https://www.w3.org/TR/skos-reference/</a> .</dd>
 
-<dt>[<dfn id="ref-SKOS-PRIMER">SKOS-PRIMER</dfn>]</dt>
+<dt id="ref-SKOS-PRIMER">[SKOS-PRIMER]</dt>
 <dd><a rel="dct:references" href="https://www.w3.org/TR/skos-primer/" class="reference-title">SKOS Simple Knowledge Organization System Primer</a>, 
     eds. A. Isaac and E. Summers, W3C Working Group Note, 18 August 2009. URL: <a href="http://www.w3.org/TR/skos-primer/">https://www.w3.org/TR/skos-primer/</a> .</dd>
 
-<dt>[<dfn id="ref-TURTLE">TURTLE</dfn>]</dt>
+<dt id="ref-TURTLE">[TURTLE]</dt>
 <dd><a rel="dct:references" href="http://www.w3.org/TR/turtle/" class="reference-title">RDF 1.1 Turtle: Terse RDF Triple Language</a>, 
     eds. E. Prud'hommeaux and G. Carothers, W3C Recommendation, 25 February 2014. URL: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a> .</dd>
 </dl>
+
+<dt id="ref-XKOS">[XKOS]</dt>
+<dd><a rel="dct:references" href="http://www.ddialliance.org/Specification/XKOS/1.0/OWL/xkos.html" class="reference-title">XKOS: An SKOS extension for representing statistical classifications</a>,
+    ed. F. Cotton, Unofficial Draft, 1 January 2017. URL: <a href="http://www.ddialliance.org/Specification/XKOS/1.0/OWL/xkos.html">http://www.ddialliance.org/Specification/XKOS/1.0/OWL/xkos.html</a> .</dd>
 </section>
 
 <section>
-<h2 id="references-pub">Publications on lexicography</h2>
+<h3 id="references-pub">Publications on lexicography</h3>
 <dl>
-<dt>[<dfn id="ref-Faria-2013">Faria-2013</dfn>]</dt>
+<dt id="ref-Faria-2013">[Faria-2013]</dt>
 <dd>F. Faria, `Georges Cuvier et le premier paradigme de la paléontologie`, Revue de Paléobiologie 32:2 (2013), 297–302.</dd>
 
-<dt>[<dfn id="ref-Hartmann-2006">Hartmann-2006</dfn>]</dt>
+<dt id="ref-Hartmann-2006">[Hartmann-2006]</dt>
 <dd>R. R. K. Hartmann, `Thesauruses`, in Encyclopedia of Language &amp; Linguistics, 2nd edn, ed. K. Brown, 14 vols (Oxford, 2006).</dd>
 
-<dt>[<dfn id="ref-Hüllen-1999">Hüllen-1999</dfn>]</dt>
+<dt id="ref-Hüllen-1999">[Hüllen-1999]</dt>
 <dd>W. Hüllen, `English Dictionaries, 800-1700: The Topical Tradition` (Oxford, 1999).</dd>
 
-<dt>[<dfn id="ref-Jacob-2004">Jacob-2004</dfn>]</dt>
+<dt id="ref-Jacob-2004">[Jacob-2004]</dt>
 <dd>E. K. Jacob, `Classification and Categorization: A Difference that Makes a Difference`, Library Trends 52:3 (2004), 515–40.</dd>
 
-<dt>[<dfn id="ref-Kay-2016">Kay-2016</dfn>]</dt>
+<dt id="ref-Kay-2016">[Kay-2016]</dt>
 <dd>C. Kay and M. Alexander, `Diachronic and Synchronic Thesauruses`, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 367–80.</dd>
 
-<dt>[<dfn id="ref-Murphy-2016">Murphy-2016</dfn>]</dt>
+<dt id="ref-Murphy-2016">[Murphy-2016]</dt>
 <dd>M. L. Murphy, `Meaning Relations in Dictionaries: Hyponymy, Meronymy, Synonymy, Antonymy, and Contrast`, in The Oxford Handbook of Lexicography, ed. P. Durkin (Oxford, 2016), pp. 439–56.</dd>
 
-<dt>[<dfn id="ref-Stolk-2017">Stolk-2017</dfn>]</dt>
+<dt id="ref-Stolk-2017">[Stolk-2017]</dt>
 <dd>S. Stolk, `<a rel="dct:references" href="http://ceur-ws.org/Vol-1899/OntoLex_2017_paper_3.pdf" class="reference-title">OntoLex and Onomasiological Ordering: Supporting Topical Thesauri</a>`, 
     Proceedings of the LDK2017 Workshops, NUI Galway, 18 June 2017, 60–67. URL: <a href="http://ceur-ws.org/Vol-1899/OntoLex_2017_paper_3.pdf">http://ceur-ws.org/Vol-1899/OntoLex_2017_paper_3.pdf</a> .</dd>
 </dl>
+</section>
 </section>
 
 </body>
