@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RSS Headlines</title>
+</head>
+<body>
+<!-- 
+  RSS feed browser meant to facilitate reading on eReaders.
+  Shows only headlines of the 'rss_url' passed as url parameter. 
+  If a 'guid' is provided, only the item with that guid from the
+  feed is shown, including its description. Images are not shown.
+
+  Based on example from https://rss2json.com/rss-to-json-api-javascript-example .
+  
+  My contributions to the example code are small and available
+  under Public Domain. If used, credits are appreciated. Enjoy.
+  
+  - Sander Stolk
+-->
+
+<div id="content"></div>
+
+<script type="text/javascript">
+    const url = window.location.href;
+    const urlParams = new URL(url).searchParams;	
+    const rss_url = urlParams.get('rss_url'); // e.g., "https://feeds.nos.nl/nosnieuwsbuitenland"
+	const item_guid = urlParams.get('guid');
+	
+    var content = document.getElementById('content');
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState==4 && xhr.status==200)
+        {
+            var data = JSON.parse(xhr.responseText);
+            var itemsContainer = document.createElement('DIV');
+
+            if(data.status == 'ok'){
+
+                for( var i=0,t = data.items.length ; i < t ; ++i ){
+                    var item = data.items[i];
+					var isItemSelected = (item_guid && item.guid && item_guid == item.guid);
+					if (item_guid && !isItemSelected)
+                        continue;
+					
+                    var itemContainer = document.createElement('DIV');
+                    var itemTitleElement = document.createElement('DIV');
+                    var itemLinkElement = document.createElement(isItemSelected ? 'H1' : 'A');
+                    var itemDescriptionElement = document.createElement('P');
+
+                    itemLinkElement.setAttribute('href' , item.guid ? 
+                        (url + '&guid=' + item.guid) : item.link);
+                    itemLinkElement.innerText = item.title;
+                    itemTitleElement.appendChild(itemLinkElement);
+
+                    if (isItemSelected)
+                        itemDescriptionElement.innerHTML = item.description;
+
+                    itemContainer.appendChild(itemTitleElement);
+                    itemContainer.appendChild(itemDescriptionElement);
+
+                    itemsContainer.appendChild(itemContainer);
+
+                }
+                
+                if (!item_guid) { // display title of feed
+                    var titleElement = document.createElement('H1');
+                    titleElement.innerText = data.feed.title;
+                    content.appendChild(titleElement);
+                }
+				
+                content.appendChild(itemsContainer);
+            }
+        }
+    };
+    if (urlParams.has('rss_url')) {
+        xhr.open(
+            'GET',
+            'https://api.rss2json.com/v1/api.json?rss_url=' + rss_url,
+            true
+        );
+        xhr.send();
+    }
+    else {
+        var msg = document.createElement('DIV');
+		msg.innerText = "Please pass the URL of your RSS feed as argument 'rss_url' to this webpage.";
+        content.appendChild(msg);
+    }
+
+</script>
+</body>
+</html>
