@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stimmen des Waldes</title>
+</head>
+
+<style>
+html, body, figure { width:100%; height:100%; margin:0; padding:0; background-color:black; }
+svg, image { display:block; width:auto; height:auto; max-width:100%; max-height:100%; margin:auto; text-align:center; }
+svg circle { cursor: pointer; }
+audio { position:fixed; bottom:0; z-index:10; visibility:hidden; }
+#audio_details { position:fixed; bottom:0; right:0; z-index:10; visibility:hidden; background-color:#eee; padding:1em; border-radius:1.5em; }
+</style>
+
+<body>
+<audio id="audio" controls></audio>
+<div id="audio_details"></div>
+<div id="info"></div>
+<figure id="projectsvg" >
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1908 4032" preserveAspectRatio="xMinYMin meet">
+    <image width="1908" height="4032" xlink:href="img/stimmen-des-waldes-box.jpg" />
+    <circle r="66" cx="457" cy="1202" onclick="play('Reh');" opacity="0.2" fill="white" />
+    <circle r="66" cx="459" cy="1387" onclick="play('Rotfuchs');" opacity="0.2" fill="white" />
+    <circle r="66" cx="463" cy="1582" onclick="play('Wildschweinrotte');" opacity="0.2" fill="white" />
+    <circle r="66" cx="467" cy="1763" onclick="play('Eichelhäher');" opacity="0.2" fill="white" />
+    <circle r="66" cx="472" cy="1947" onclick="play('Nachtigall');" opacity="0.2" fill="white" />
+    <circle r="66" cx="474" cy="2125" onclick="play('Buntspecht');" opacity="0.2" fill="white" />
+    <circle r="66" cx="478" cy="2305" onclick="play('Elster');" opacity="0.2" fill="white" />
+    <circle r="66" cx="480" cy="2480" onclick="play('Amsel');" opacity="0.2" fill="white" />
+    <circle r="66" cx="482" cy="2659" onclick="play('Uhu');" opacity="0.2" fill="white" />
+    <circle r="66" cx="484" cy="2834" onclick="play('Waldkauz');" opacity="0.2" fill="white" />
+  </svg>
+</figure>
+</body>
+
+<script>
+var sound = "";
+var file = "";
+var info = "";
+var author = "";
+var license = "";
+
+function play(type) {
+  sound = type;
+  switch(sound) {
+    case 'Reh':
+      file = "https://suche.tierstimmenarchiv.de/download_short.mp3?unique_identifier=TSA:Capreolus_capreolus_DIG_105_6_1";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:Capreolus_capreolus_DIG_105_6_1";
+      author = "Frommolt, Karl-Heinz";
+      license = "CC BY-SA";
+      break;
+    case 'Rotfuchs':
+      file = "https://suche.tierstimmenarchiv.de/download.mp3?unique_identifier=TSA:1068_Rotfuchs_Ruede_Bellserie";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:1068_Rotfuchs_Ruede_Bellserie";
+      author = "Tembrock, Günter";
+      license = "CC BY-SA";
+      break;
+    case 'Wildschweinrotte':
+      file = "https://suche.tierstimmenarchiv.de/download_short.mp3?unique_identifier=TSA:Sus_scrofa_V_2123_33_2";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:Sus_scrofa_V_2123_33_2";
+      author = "Tembrock, Günter";
+      license = "CC BY-SA";
+      break;
+    case 'Eichelhäher':
+      file = "https://suche.tierstimmenarchiv.de/download.mp3?unique_identifier=TSA:0244_Eichelhaeher_Warnrufe";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:0244_Eichelhaeher_Warnrufe";
+      author = "Tembrock, Günter";
+      license = "CC BY-SA";
+      break;
+    case 'Nachtigall':
+      file = "https://suche.tierstimmenarchiv.de/download.mp3?unique_identifier=J_Orn:Luscinia_megarhynchos_80181";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=J_Orn:Luscinia_megarhynchos_80181";
+      author = "Kipper, Silke";
+      license = "CC BY-NC-SA";
+      break;
+    case 'Buntspecht':
+      file = "https://suche.tierstimmenarchiv.de/download.mp3?unique_identifier=FRA:Dendrocopos_major_PF01575";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=FRA:Dendrocopos_major_PF01575";
+      author = "Franke, Patrick";
+      license = "CC BY-NC-SA";
+      break;
+    case 'Elster':
+      file = "https://suche.tierstimmenarchiv.de/download_short.mp3?unique_identifier=TSA:Pica_pica_Lue_77_9_1";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:Pica_pica_Lue_77_9_1";
+      author = "Lütgens, Hans";
+      license = "CC BY-SA";
+      break;
+    case 'Amsel':
+      file = "https://suche.tierstimmenarchiv.de/download.mp3?unique_identifier=TSA:Turdus_merula_Tre_N_150_14_0";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:Turdus_merula_Tre_N_150_14_0";
+      author = "Tretzel, Erwin";
+      license = "CC BY-SA";
+      break;
+    case 'Uhu':
+      file = "https://suche.tierstimmenarchiv.de/download_short.mp3?unique_identifier=TSA:Bubo_bubo_Lue_57_10_1";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:Bubo_bubo_Lue_57_10_1";
+      author = "Lütgens, Hans";
+      license = "CC BY-SA";
+      break;
+    case 'Waldkauz':
+      file = "https://suche.tierstimmenarchiv.de/download.mp3?unique_identifier=TSA:Strix_aluco_Tre_Imi0003_055";
+      info = "https://suche.tierstimmenarchiv.de/showdetails.html?unique_identifier=TSA:Strix_aluco_Tre_Imi0003_055";
+      author = "Tretzel, Erwin";
+      license = "CC BY-SA";
+      break;
+    default:
+      sound = "";
+      file = "";
+      info = "";
+      author = "";
+      license = "";
+  }
+  
+  if (!sound || sound == "") return;
+
+  var player = document.getElementById('audio');
+  player.setAttribute('src', file);
+  player.setAttribute('style', 'visibility:visible;');
+  player.play();
+  
+  var audio_details = document.getElementById('audio_details');
+  audio_details.innerHTML = "<strong>" + sound + "</strong> <small>(<a href='" + info + "'>Quelle</a>)<br/>" + 
+    "Autor: " + author + "<br/>" +
+    "Nutzungsrechte: " + license + "</small>";
+  audio_details.setAttribute('style', 'visibility:visible;');
+}
+</script>
+
+</html>
